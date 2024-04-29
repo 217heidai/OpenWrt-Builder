@@ -13,44 +13,42 @@
 name: Update Checker
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: openwrt-21.02
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: 0 */18 * * *
+  schedule:
+    - cron: 0 20 * * *
 
 jobs:
   check:
     runs-on: ubuntu-latest
 
     steps:
-
-    - name: Get Commit Hash
+    - name: Get commit hash
       id: getHash
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
         echo "commitHash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
-    - name: Compare Commit Hash
+    - name: Compare commit hash
       id: cacheHash
       uses: actions/cache@v3
       with:
         path: .commitHash
         key: commitHash_${{ steps.getHash.outputs.commitHash }}
 
-    - name: Save New Commit Hash
+    - name: Save new commit hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
         echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
 
-    - name: Trigger build
+    - name: Create a repository dispatch event
       if: steps.cacheHash.outputs.cache-hit != 'true'
       uses: peter-evans/repository-dispatch@v2
       with:
-        token: ${{ github.token }}
-        event-type: Source Code Update
+        event-type: on-update
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
