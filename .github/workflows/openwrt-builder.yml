@@ -18,10 +18,9 @@ on:
     types: [on-update]
 
 env:
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: openwrt-21.02
   VENDOR: immortalwrt
-  VERSION: 21.02.7
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
@@ -109,7 +108,7 @@ jobs:
           file_glob: true
           file: openwrt/bin/targets/x86/64/*
           asset_name: ${{ github.event.repository.name }}-${{ github.sha }}
-          tag: ${{ env.VENDOR }}-${{ env.VERSION }}-x86_64-${{ env.FILE_DATE }}
+          tag: ${{ env.VENDOR }}-x86_64-${{ env.FILE_DATE }}
           overwrite: true
 
       - name: Delete workflow runs
