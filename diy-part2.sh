@@ -46,10 +46,12 @@ echo 'CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y' >> .config
 echo 'CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y' >> .config
 
 # 第三方插件
-echo '
-CONFIG_PACKAGE_luci-app-autotimeset=y
-CONFIG_PACKAGE_luci-app-partexp=y
-' >> .config
+# 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
+git clone https://github.com/sirpdboy/luci-app-autotimeset.git package/luci-app-autotimeset
+echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
+# 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
+git clone https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
+echo 'CONFIG_PACKAGE_luci-app-partexp=y' >> .config
 
 
 # 镜像生成
