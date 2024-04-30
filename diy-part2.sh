@@ -24,8 +24,26 @@ sed -i 's/192.168.1.1/192.168.3.1/g' package/base-files/files/bin/config_generat
 
 
 # 原生插件
-
-
+#sed -i "s///" .config
+# 补齐中文界面
+echo '
+CONFIG_PACKAGE_luci-i18n-opkg-zh-cn=y
+CONFIG_PACKAGE_luci-i18n-base-zh-cn=y
+' >> .config
+# CPU 跑分
+sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
+# CPU 温度
+sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect/" .config
+# tcp bbr
+sed -i "s/# CONFIG_PACKAGE_kmod-tcp-bbr is not set/ONFIG_PACKAGE_kmod-tcp-bbr=y/" .config
+# nano 替代 vim
+sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
+# argon 主题
+sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
+# passwall
+echo 'CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y' >> .config
+# upnp
+echo 'CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y' >> .config
 
 # 第三方插件
 echo '
