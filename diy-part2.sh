@@ -38,14 +38,35 @@ sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensor
 sed -i "s/# CONFIG_PACKAGE_kmod-tcp-bbr is not set/CONFIG_PACKAGE_kmod-tcp-bbr=y/" .config
 # nano 替代 vim
 sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
+# tty 终端
+sed -i "s/# CONFIG_PACKAGE_luci-app-ttyd is not set/CONFIG_PACKAGE_luci-app-ttyd=y/" .config
 # argon 主题
 sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
 # docker
 sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/" .config
 # passwall
-echo 'CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y' >> .config
+#echo 'CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y' >> .config
+sed -i "s/# CONFIG_PACKAGE_luci-app-passwall is not set/CONFIG_PACKAGE_luci-app-passwall=y/" .config
 # upnp
-echo 'CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y' >> .config
+#echo 'CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y' >> .config
+sed -i "s/# CONFIG_PACKAGE_luci-app-upnp is not set/CONFIG_PACKAGE_luci-app-upnp=y/" .config
+# USB 2.0 3.0 支持
+sed -i "s/# CONFIG_PACKAGE_usbutils is not set/CONFIG_PACKAGE_usbutils=y/" .config
+sed -i "s/# CONFIG_PACKAGE_usb-modeswitch is not set/CONFIG_PACKAGE_usb-modeswitch=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-usb2 is not set/CONFIG_PACKAGE_kmod-usb2=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-usb3 is not set/CONFIG_PACKAGE_kmod-usb3=y/" .config
+# USB 共享网络支持
+sed -i "s# CONFIG_PACKAGE_kmod-usb-net-cdc-ether is not set/CONFIG_PACKAGE_kmod-usb-net-cdc-ether=y/" .config
+# iphone USB 网络共享
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-ipheth is not set/CONFIG_PACKAGE_kmod-usb-net-ipheth=y/" .config
+# android USB 网络共享
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
+# 4G/5G 模块支持
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial is not set/CONFIG_PACKAGE_kmod-usb-serial=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod-usb-serial-option=y/" .config
+sed -i "s/# CONFIG_PACKAGE_sms-tool is not set/CONFIG_PACKAGE_sms-tool=y/" .config
+sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
+sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
 
 # 第三方插件
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
