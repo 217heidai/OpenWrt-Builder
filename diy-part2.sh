@@ -33,13 +33,15 @@ CONFIG_PACKAGE_luci-i18n-base-zh-cn=y
 # CPU 跑分
 sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
 # CPU 温度
-sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect/" .config
+sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect=y/" .config
 # tcp bbr
-sed -i "s/# CONFIG_PACKAGE_kmod-tcp-bbr is not set/ONFIG_PACKAGE_kmod-tcp-bbr=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-tcp-bbr is not set/CONFIG_PACKAGE_kmod-tcp-bbr=y/" .config
 # nano 替代 vim
 sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
 # argon 主题
 sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
+# docker
+sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/" .config
 # passwall
 echo 'CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y' >> .config
 # upnp
