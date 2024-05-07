@@ -47,6 +47,9 @@ sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app
 # passwall
 #echo 'CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y' >> .config
 sed -i "s/# CONFIG_PACKAGE_luci-app-passwall is not set/CONFIG_PACKAGE_luci-app-passwall=y/" .config
+# 关闭 passwall 的 shadowsocks_libev 依赖，无法正常编译
+sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client is not set/" .config
+sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server is not set/" .config
 # upnp
 #echo 'CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y' >> .config
 sed -i "s/# CONFIG_PACKAGE_luci-app-upnp is not set/CONFIG_PACKAGE_luci-app-upnp=y/" .config
@@ -58,15 +61,15 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb3 is not set/CONFIG_PACKAGE_kmod-usb3=y/" .co
 sed -i "s/# CONFIG_PACKAGE_usb-modeswitch is not set/CONFIG_PACKAGE_usb-modeswitch=y/" .config
 sed -i "s# CONFIG_PACKAGE_kmod-usb-net-cdc-ether is not set/CONFIG_PACKAGE_kmod-usb-net-cdc-ether=y/" .config
 # iphone USB 网络共享
-#sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-ipheth is not set/CONFIG_PACKAGE_kmod-usb-net-ipheth=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-ipheth is not set/CONFIG_PACKAGE_kmod-usb-net-ipheth=y/" .config
 # android USB 网络共享
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
 # 4G/5G 模块支持
-#sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial is not set/CONFIG_PACKAGE_kmod-usb-serial=y/" .config
-#sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod-usb-serial-option=y/" .config
-#sed -i "s/# CONFIG_PACKAGE_sms-tool is not set/CONFIG_PACKAGE_sms-tool=y/" .config
-#sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
-#sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial is not set/CONFIG_PACKAGE_kmod-usb-serial=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod-usb-serial-option=y/" .config
+sed -i "s/# CONFIG_PACKAGE_sms-tool is not set/CONFIG_PACKAGE_sms-tool=y/" .config
+sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
+sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
 
 # 第三方插件
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
