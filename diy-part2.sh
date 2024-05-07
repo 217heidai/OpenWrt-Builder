@@ -19,17 +19,8 @@ sed -i 's/192.168.1.1/192.168.3.1/g' package/base-files/files/bin/config_generat
 # Modify default theme
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
-# Modify hostname
-#sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
-
 
 # 原生插件
-#sed -i "s///" .config
-# 补齐中文界面
-echo '
-CONFIG_PACKAGE_luci-i18n-base-zh-cn=y
-CONFIG_PACKAGE_luci-i18n-opkg-zh-cn=y
-' >> .config
 # luci 
 sed -i "s/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/" .config
 sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_default-settings-chn=y/" .config
@@ -50,26 +41,28 @@ sed -i "s/# CONFIG_PACKAGE_luci-theme-bootstrap-mod is not set/CONFIG_PACKAGE_lu
 # docker
 sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/" .config
 # passwall
-#echo 'CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y' >> .config
 sed -i "s/# CONFIG_PACKAGE_luci-app-passwall is not set/CONFIG_PACKAGE_luci-app-passwall=y/" .config
-# shadowsocks_rust 替代 shadowsocks_libev，否则无法正常编译
+## shadowsocks_rust 替代 shadowsocks_libev，否则无法正常编译
 sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client is not set/" .config
 sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server is not set/" .config
 sed -i "s/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client is not set/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client=y/" .config
 sed -i "s/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server is not set/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server=y/" .config
 # upnp
-#echo 'CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y' >> .config
 sed -i "s/# CONFIG_PACKAGE_luci-app-upnp is not set/CONFIG_PACKAGE_luci-app-upnp=y/" .config
-# USB 2.0 3.0 支持
+# kms
+sed -i "s/# CONFIG_PACKAGE_luci-app-vlmcsd is not set/CONFIG_PACKAGE_luci-app-vlmcsd=y/" .config
+# ip 绑定 mac
+sed -i "s/# CONFIG_PACKAGE_luci-app-arpbind is not set/CONFIG_PACKAGE_luci-app-arpbind=y/" .config
+# usb 2.0 3.0 支持
 sed -i "s/# CONFIG_PACKAGE_usbutils is not set/CONFIG_PACKAGE_usbutils=y/" .config
 sed -i "s/# CONFIG_PACKAGE_kmod-usb2 is not set/CONFIG_PACKAGE_kmod-usb2=y/" .config
 sed -i "s/# CONFIG_PACKAGE_kmod-usb3 is not set/CONFIG_PACKAGE_kmod-usb3=y/" .config
-# USB 共享网络支持
+# usb 网络支持
 sed -i "s/# CONFIG_PACKAGE_usb-modeswitch is not set/CONFIG_PACKAGE_usb-modeswitch=y/" .config
 sed -i "s# CONFIG_PACKAGE_kmod-usb-net-cdc-ether is not set/CONFIG_PACKAGE_kmod-usb-net-cdc-ether=y/" .config
-# iphone USB 网络共享
+## iphone usb 网络共享
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-ipheth is not set/CONFIG_PACKAGE_kmod-usb-net-ipheth=y/" .config
-# android USB 网络共享
+## android usb 网络共享
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
 # 4G/5G 模块支持
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial is not set/CONFIG_PACKAGE_kmod-usb-serial=y/" .config
