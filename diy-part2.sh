@@ -30,18 +30,23 @@ echo '
 CONFIG_PACKAGE_luci-i18n-base-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-opkg-zh-cn=y
 ' >> .config
+# luci 
+sed -i "s/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/" .config
+sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_default-settings-chn=y/" .config
 # CPU 跑分
 sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
 # CPU 温度
 sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect=y/" .config
-# tcp bbr
-sed -i "s/# CONFIG_PACKAGE_kmod-tcp-bbr is not set/CONFIG_PACKAGE_kmod-tcp-bbr=y/" .config
 # nano 替代 vim
 sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
 # tty 终端
 sed -i "s/# CONFIG_PACKAGE_luci-app-ttyd is not set/CONFIG_PACKAGE_luci-app-ttyd=y/" .config
 # argon 主题
 sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
+sed -i "s/# CONFIG_PACKAGE_luci-app-argon-config is not set/CONFIG_PACKAGE_luci-app-argon-config=y/" .config
+# bootstrap 主题
+sed -i "s/# CONFIG_PACKAGE_luci-theme-bootstrap is not set/CONFIG_PACKAGE_luci-theme-bootstrap=y/" .config
+sed -i "s/# CONFIG_PACKAGE_luci-theme-bootstrap-mod is not set/CONFIG_PACKAGE_luci-theme-bootstrap-mod=y/" .config
 # docker
 sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/" .config
 # passwall
