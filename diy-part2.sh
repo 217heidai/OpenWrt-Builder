@@ -27,8 +27,8 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 #sed -i "s///" .config
 # 补齐中文界面
 echo '
-CONFIG_PACKAGE_luci-i18n-opkg-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-base-zh-cn=y
+CONFIG_PACKAGE_luci-i18n-opkg-zh-cn=y
 ' >> .config
 # CPU 跑分
 sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
@@ -47,9 +47,11 @@ sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app
 # passwall
 #echo 'CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y' >> .config
 sed -i "s/# CONFIG_PACKAGE_luci-app-passwall is not set/CONFIG_PACKAGE_luci-app-passwall=y/" .config
-# 关闭 passwall 的 shadowsocks_libev 依赖，无法正常编译
+# shadowsocks_rust 替代 shadowsocks_libev，否则无法正常编译
 sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client is not set/" .config
 sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server is not set/" .config
+sed -i "s/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client is not set/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client=y/" .config
+sed -i "s/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server is not set/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server=y/" .config
 # upnp
 #echo 'CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y' >> .config
 sed -i "s/# CONFIG_PACKAGE_luci-app-upnp is not set/CONFIG_PACKAGE_luci-app-upnp=y/" .config
