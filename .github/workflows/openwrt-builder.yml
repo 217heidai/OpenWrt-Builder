@@ -19,6 +19,7 @@ on:
 
 env:
   VENDOR: immortalwrt
+  VERSION: 23.05
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-23.05
   FEEDS_CONF: feeds.conf.default
@@ -106,7 +107,7 @@ jobs:
           file_glob: true
           file: openwrt/bin/targets/x86/64/*
           asset_name: ${{ github.event.repository.name }}-${{ github.sha }}
-          tag: ${{ env.VENDOR }}-x86_64-${{ env.COMPILE_DATE }}
+          tag: ${{ env.VENDOR }}-${{env.VERSION}}-x86_64-${{ env.COMPILE_DATE }}
           body: |
             ### OpenWrt Image information
             - Default IP: 192.168.3.1
