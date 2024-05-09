@@ -54,21 +54,30 @@ sed -i "s/# CONFIG_PACKAGE_luci-app-vlmcsd is not set/CONFIG_PACKAGE_luci-app-vl
 # ip 绑定 mac
 sed -i "s/# CONFIG_PACKAGE_luci-app-arpbind is not set/CONFIG_PACKAGE_luci-app-arpbind=y/" .config
 # usb 2.0 3.0 支持
-sed -i "s/# CONFIG_PACKAGE_usbutils is not set/CONFIG_PACKAGE_usbutils=y/" .config
 sed -i "s/# CONFIG_PACKAGE_kmod-usb2 is not set/CONFIG_PACKAGE_kmod-usb2=y/" .config
 sed -i "s/# CONFIG_PACKAGE_kmod-usb3 is not set/CONFIG_PACKAGE_kmod-usb3=y/" .config
 # usb 网络支持
+sed -i "s/# CONFIG_PACKAGE_usbutils is not set/CONFIG_PACKAGE_usbutils=y/" .config
 sed -i "s/# CONFIG_PACKAGE_usb-modeswitch is not set/CONFIG_PACKAGE_usb-modeswitch=y/" .config
-sed -i "s# CONFIG_PACKAGE_kmod-usb-net-cdc-ether is not set/CONFIG_PACKAGE_kmod-usb-net-cdc-ether=y/" .config
-## iphone usb 网络共享
-sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-ipheth is not set/CONFIG_PACKAGE_kmod-usb-net-ipheth=y/" .config
-## android usb 网络共享
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-net is not set/CONFIG_PACKAGE_kmod-usb-net=y/" .config
+## RNDIS
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
-# 4G/5G 模块支持
+## QMI
+sed -i "s/# CONFIG_PACKAGE_kmod-mii is not set/CONFIG_PACKAGE_kmod-mii=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-wdm is not set/CONFIG_PACKAGE_kmod-usb-wdm=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-qmi-wwan is not set/CONFIG_PACKAGE_kmod-usb-net-qmi-wwan=y/" .config
+sed -i "s/# CONFIG_PACKAGE_uqmi is not set/CONFIG_PACKAGE_uqmi=y/" .config
+## NCM
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial is not set/CONFIG_PACKAGE_kmod-usb-serial=y/" .config
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod-usb-serial-option=y/" .config
+## 4G/5G 模块操作
+### AT 指令
+sed -i "s/# CONFIG_PACKAGE_minicom is not set/CONFIG_PACKAGE_minicom=y/" .config
+### SIM 卡操作
 sed -i "s/# CONFIG_PACKAGE_sms-tool is not set/CONFIG_PACKAGE_sms-tool=y/" .config
+### modemband
 sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
+### 4G/5G 信息
 sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
 
 # 第三方插件
