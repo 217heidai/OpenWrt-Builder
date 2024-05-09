@@ -21,7 +21,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 
 # 原生插件
-# luci 
+# luci
 sed -i "s/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/" .config
 sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_default-settings-chn=y/" .config
 # CPU 跑分
@@ -31,7 +31,7 @@ sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensor
 # nano 替代 vim
 sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
 # tty 终端
-sed -i "s/# CONFIG_PACKAGE_luci-app-ttyd is not set/CONFIG_PACKAGE_luci-app-ttyd=y/" .config
+#sed -i "s/# CONFIG_PACKAGE_luci-app-ttyd is not set/CONFIG_PACKAGE_luci-app-ttyd=y/" .config
 # argon 主题
 sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
 #sed -i "s/# CONFIG_PACKAGE_luci-app-argon-config is not set/CONFIG_PACKAGE_luci-app-argon-config=y/" .config
@@ -39,7 +39,7 @@ sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme
 sed -i "s/# CONFIG_PACKAGE_luci-theme-bootstrap is not set/CONFIG_PACKAGE_luci-theme-bootstrap=y/" .config
 sed -i "s/# CONFIG_PACKAGE_luci-theme-bootstrap-mod is not set/CONFIG_PACKAGE_luci-theme-bootstrap-mod=y/" .config
 # docker
-sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/" .config
+#sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/" .config
 # passwall
 sed -i "s/# CONFIG_PACKAGE_luci-app-passwall is not set/CONFIG_PACKAGE_luci-app-passwall=y/" .config
 ## shadowsocks_rust 替代 shadowsocks_libev，否则无法正常编译
@@ -75,10 +75,11 @@ sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-a
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
 git clone https://github.com/sirpdboy/luci-app-autotimeset.git package/luci-app-autotimeset
 echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
+## 依赖 ipkg
 sed -i "s/# CONFIG_PACKAGE_luci-lib-ipkg is not set/CONFIG_PACKAGE_luci-lib-ipkg=y/" .config
 # 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
-git clone https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
-echo 'CONFIG_PACKAGE_luci-app-partexp=y' >> .config
+#git clone https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
+#echo 'CONFIG_PACKAGE_luci-app-partexp=y' >> .config
 
 
 # 镜像生成
