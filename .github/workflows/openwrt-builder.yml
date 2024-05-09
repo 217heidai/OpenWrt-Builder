@@ -116,7 +116,7 @@ jobs:
           echo -e "$(($(nproc) + 1)) thread compile"
           make -j$(($(nproc) + 1)) V=s || make -j1 || make -j1 V=s
           echo "status=success" >> $GITHUB_OUTPUT
-          echo "COMPILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+          echo "COMPILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
       - name: Check space usage
         if: (!cancelled())
