@@ -122,9 +122,8 @@ jobs:
           rm -rf bin/targets/x86/64/sha256sums
           rm -rf bin/targets/x86/64/immortalwrt-x86-64-generic-kernel.bin
           rm -rf bin/targets/x86/64/immortalwrt-x86-64-generic.manifest.manifest
+          rm -rf bin/targets/x86/64/*.img.gz
           mv bin/targets/x86/64/immortalwrt-x86-64-generic-rootfs.tar.gz bin/targets/x86/64/immortalwrt-${{ env.VERSION }}-x86-64-generic-rootfs-${{ env.COMPILE_DATE }}.tar.gz
-          mv bin/targets/x86/64/immortalwrt-x86-64-generic-squashfs-combined-efi.img.gz bin/targets/x86/64/immortalwrt-${{ env.VERSION }}-x86-64-generic-squashfs-combined-efi-${{ env.COMPILE_DATE }}.img.gz
-          mv bin/targets/x86/64/immortalwrt-x86-64-generic-squashfs-rootfs.img.gz bin/targets/x86/64/immortalwrt-${{ env.VERSION }}-x86-64-generic-squashfs-rootfs-${{ env.COMPILE_DATE }}.img.gz
 
       - name: Check space usage
         if: (!cancelled())
