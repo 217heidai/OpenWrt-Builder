@@ -27,6 +27,7 @@ sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_defaul
 # CPU 跑分
 sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
 # CPU 温度
+sed -i "s/# CONFIG_PACKAGE_lm-sensors is not set/CONFIG_PACKAGE_lm-sensors=y/" .config
 sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect=y/" .config
 # nano 替代 vim
 sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
