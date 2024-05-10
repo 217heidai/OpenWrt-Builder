@@ -19,18 +19,37 @@ sed -i 's/192.168.1.1/192.168.3.1/g' package/base-files/files/bin/config_generat
 # Modify default theme
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
+# 删除
+# 音频驱动
+sed -i "s/CONFIG_PACKAGE_alsa-utils=y/# CONFIG_PACKAGE_alsa-utils is not set/" .config
+sed -i "s/CONFIG_PACKAGE_kmod-ac97=y/# CONFIG_PACKAGE_kmod-ac97 is not set/" .config
+sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-codec-hdmi=y/# CONFIG_PACKAGE_kmod-sound-hda-codec-hdmi is not set/" .config
+sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-codec-realtek=y/# CONFIG_PACKAGE_kmod-sound-hda-codec-realtek is not set/" .config
+sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-codec-via=y/# CONFIG_PACKAGE_kmod-sound-hda-codec-via is not set/" .config
+sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-core=y/# CONFIG_PACKAGE_kmod-sound-hda-core is not set/" .config
+sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-intel=y/# CONFIG_PACKAGE_kmod-sound-hda-intel is not set/" .config
+sed -i "s/CONFIG_PACKAGE_kmod-sound-i8x0=y/# CONFIG_PACKAGE_kmod-sound-i8x0 is not set/" .config
+sed -i "s/CONFIG_PACKAGE_kmod-sound-via82xx=y/# CONFIG_PACKAGE_kmod-sound-via82xx is not set/" .config
+# usb 驱动
+## Kernel support for USB audio devices
+sed -i "s/CONFIG_PACKAGE_kmod-usb-audio=y/# CONFIG_PACKAGE_kmod-usb-audio is not set/" .config
+## Kernel support for USB HID devices such as keyboards and mice
+sed -i "s/CONFIG_PACKAGE_kmod-usb-hid=y/# CONFIG_PACKAGE_kmod-usb-hid is not set/" .config
 
 # 原生插件
 # luci
 sed -i "s/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/" .config
 sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_default-settings-chn=y/" .config
-# CPU 跑分
+# cpu 跑分
 sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
-# CPU 温度
-sed -i "s/# CONFIG_PACKAGE_lm-sensors is not set/CONFIG_PACKAGE_lm-sensors=y/" .config
+# cpu 频率、温度
+sed -i "s/CONFIG_PACKAGE_autocore is not set/CONFIG_PACKAGE_autocore=y/" .config
 sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect=y/" .config
 # nano 替代 vim
 sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
+# nathelper
+sed -i "s/# CONFIG_PACKAGE_kmod-nf-nathelper is not set/CONFIG_PACKAGE_kmod-nf-nathelper=y/" .config
+sed -i "s/# CONFIG_PACKAGE_kmod-nf-nathelper-extra is not set/CONFIG_PACKAGE_kmod-nf-nathelper-extra=y/" .config
 # tty 终端
 #sed -i "s/# CONFIG_PACKAGE_luci-app-ttyd is not set/CONFIG_PACKAGE_luci-app-ttyd=y/" .config
 # argon 主题
@@ -85,7 +104,7 @@ sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-a
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
 git clone https://github.com/sirpdboy/luci-app-autotimeset.git package/luci-app-autotimeset
 echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
-## 依赖 ipkg
+## 依赖
 sed -i "s/# CONFIG_PACKAGE_luci-lib-ipkg is not set/CONFIG_PACKAGE_luci-lib-ipkg=y/" .config
 # 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
 #git clone https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
