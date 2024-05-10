@@ -30,11 +30,7 @@ sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-core=y/# CONFIG_PACKAGE_kmod-sound-hda-c
 sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-intel=y/# CONFIG_PACKAGE_kmod-sound-hda-intel is not set/" .config
 sed -i "s/CONFIG_PACKAGE_kmod-sound-i8x0=y/# CONFIG_PACKAGE_kmod-sound-i8x0 is not set/" .config
 sed -i "s/CONFIG_PACKAGE_kmod-sound-via82xx=y/# CONFIG_PACKAGE_kmod-sound-via82xx is not set/" .config
-# usb 驱动
-## Kernel support for USB audio devices
 sed -i "s/CONFIG_PACKAGE_kmod-usb-audio=y/# CONFIG_PACKAGE_kmod-usb-audio is not set/" .config
-## Kernel support for USB HID devices such as keyboards and mice
-sed -i "s/CONFIG_PACKAGE_kmod-usb-hid=y/# CONFIG_PACKAGE_kmod-usb-hid is not set/" .config
 
 # 原生插件
 # luci
