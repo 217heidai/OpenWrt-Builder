@@ -39,7 +39,7 @@ sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_defaul
 # coremark cpu 跑分
 sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
 # autocore + lm-sensors-detect： cpu 频率、温度
-sed -i "s/CONFIG_PACKAGE_autocore is not set/CONFIG_PACKAGE_autocore=y/" .config
+sed -i "s/# CONFIG_PACKAGE_autocore is not set/CONFIG_PACKAGE_autocore=y/" .config
 sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect=y/" .config
 # nano 替代 vim
 sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
@@ -72,44 +72,36 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb3 is not set/CONFIG_PACKAGE_kmod-usb3=y/" .co
 # usb 网络支持
 sed -i "s/# CONFIG_PACKAGE_usbutils is not set/CONFIG_PACKAGE_usbutils=y/" .config
 sed -i "s/# CONFIG_PACKAGE_usb-modeswitch is not set/CONFIG_PACKAGE_usb-modeswitch=y/" .config
-sed -i "s/# CONFIG_PACKAGE_kmod-usb-net is not set/CONFIG_PACKAGE_kmod-usb-net=y/" .config
-## RNDIS
-sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
-## QMI
-sed -i "s/# CONFIG_PACKAGE_kmod-mii is not set/CONFIG_PACKAGE_kmod-mii=y/" .config
-sed -i "s/# CONFIG_PACKAGE_kmod-usb-wdm is not set/CONFIG_PACKAGE_kmod-usb-wdm=y/" .config
-sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-qmi-wwan is not set/CONFIG_PACKAGE_kmod-usb-net-qmi-wwan=y/" .config
-sed -i "s/# CONFIG_PACKAGE_uqmi is not set/CONFIG_PACKAGE_uqmi=y/" .config
-## NCM
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial is not set/CONFIG_PACKAGE_kmod-usb-serial=y/" .config
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod-usb-serial-option=y/" .config
+## RNDIS
+sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
 ## 4G/5G 模块操作
-### AT 指令
-sed -i "s/# CONFIG_PACKAGE_minicom is not set/CONFIG_PACKAGE_minicom=y/" .config
 ### luci-app-modemband 4G/5G 模块绑定
-rm -rf feeds/packages/utils/sms-tool
-rm -rf feeds/packages/net/modemband
-rm -rf feeds/luci/applications/luci-app-modemband
-git clone https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband-tmp
-mv package/luci-app-modemband-tmp/sms-tool feeds/packages/utils/
-mv package/luci-app-modemband-tmp/modemband feeds/packages/net/
-mv package/luci-app-modemband-tmp/luci-app-modemband feeds/luci/applications/
-rm -rf package/luci-app-modemband-tmp
 sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
 ### luci-app-3ginfo-lite 4G/5G 信息
-rm -rf feeds/luci/applications/luci-app-3ginfo-lite
-git clone https://github.com/4IceG/luci-app-3ginfo-lite.git package/luci-app-3ginfo-lite-tmp
-mv package/luci-app-modemband-tmp/luci-app-3ginfo-lite feeds/luci/applications/
-rm -rf package/luci-app-3ginfo-lite-tmp
 sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
+### FM350-GL 模块
+mkdir -p package/fm350
+git clone --depth 1 https://github.com/kiddin9/openwrt-packages.git package/kiddin9
+mv package/kiddin9/fm350-modem package/fm350/
+echo 'CONFIG_PACKAGE_fm350-modem=y' >> .config
+mv package/kiddin9/luci-proto-fm350 package/fm350/
+echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
+mv package/kiddin9/luci-app-modem package/fm350/
+echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
+rm -rf package/kiddin9
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
-git clone https://github.com/sirpdboy/luci-app-autotimeset.git package/luci-app-autotimeset
+git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset.git package/luci-app-autotimeset
 echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
 ## 依赖
 sed -i "s/# CONFIG_PACKAGE_luci-lib-ipkg is not set/CONFIG_PACKAGE_luci-lib-ipkg=y/" .config
 # 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
-#git clone https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
+#git clone --depth 1 https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
 #echo 'CONFIG_PACKAGE_luci-app-partexp=y' >> .config
+# istore 应用市场
+#git clone --depth 1 https://github.com/linkease/istore.git package/istore
+#echo 'CONFIG_PACKAGE_luci-app-store=y=y' >> .config
 
 
 # 镜像生成
@@ -131,4 +123,4 @@ sed -i "s/CONFIG_GRUB_IMAGES=y/# CONFIG_GRUB_IMAGES is not set/" .config
 ## 不生成 VMDK
 #sed -i "s/CONFIG_VMDK_IMAGES=y/# CONFIG_VMDK_IMAGES is not set/" .config
 ## 生成 QCOW2
-sed -i "s/# CONFIG_QCOW2_IMAGES is not set/CONFIG_QCOW2_IMAGES=y/" .config
+#sed -i "s/# CONFIG_QCOW2_IMAGES=y/CONFIG_QCOW2_IMAGES is not set/" .config

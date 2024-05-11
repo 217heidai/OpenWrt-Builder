@@ -133,7 +133,7 @@ jobs:
           rm -rf immortalwrt-x86-64-generic.manifest
           rm -rf *.img.gz
           mv immortalwrt-x86-64-generic-rootfs.tar.gz immortalwrt-${{ env.VERSION }}-x86-64-generic-rootfs-${{ env.COMPILE_DATE }}.tar.gz
-      
+
       - name: Upload firmware to release
         if: steps.compile.outputs.status == 'success' && !cancelled()
         uses: svenstaro/upload-release-action@v2
