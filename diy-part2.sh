@@ -125,5 +125,5 @@ sed -i "s/CONFIG_GRUB_IMAGES=y/# CONFIG_GRUB_IMAGES is not set/" .config
 #sed -i "s/CONFIG_VDI_IMAGES=y/# CONFIG_VDI_IMAGES is not set/" .config
 ## 不生成 VMDK
 #sed -i "s/CONFIG_VMDK_IMAGES=y/# CONFIG_VMDK_IMAGES is not set/" .config
-## 不生成 QCOW2
-#sed -i "s/CONFIG_QCOW2_IMAGES=y/# CONFIG_QCOW2_IMAGES is not set/" .config
+## 生成 QCOW2
+sed -i "s/# CONFIG_QCOW2_IMAGES is not set/CONFIG_QCOW2_IMAGES=y/" .config
