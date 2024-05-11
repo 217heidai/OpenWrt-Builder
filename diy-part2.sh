@@ -32,13 +32,13 @@ sed -i "s/CONFIG_PACKAGE_kmod-sound-i8x0=y/# CONFIG_PACKAGE_kmod-sound-i8x0 is n
 sed -i "s/CONFIG_PACKAGE_kmod-sound-via82xx=y/# CONFIG_PACKAGE_kmod-sound-via82xx is not set/" .config
 sed -i "s/CONFIG_PACKAGE_kmod-usb-audio=y/# CONFIG_PACKAGE_kmod-usb-audio is not set/" .config
 
-# 原生插件
+# 新增
 # luci
 sed -i "s/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/" .config
 sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_default-settings-chn=y/" .config
-# cpu 跑分
+# coremark cpu 跑分
 sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
-# cpu 频率、温度
+# autocore + lm-sensors-detect： cpu 频率、温度
 sed -i "s/CONFIG_PACKAGE_autocore is not set/CONFIG_PACKAGE_autocore=y/" .config
 sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect=y/" .config
 # nano 替代 vim
@@ -51,9 +51,6 @@ sed -i "s/# CONFIG_PACKAGE_kmod-nf-nathelper-extra is not set/CONFIG_PACKAGE_kmo
 # argon 主题
 sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
 #sed -i "s/# CONFIG_PACKAGE_luci-app-argon-config is not set/CONFIG_PACKAGE_luci-app-argon-config=y/" .config
-# bootstrap 主题
-#sed -i "s/# CONFIG_PACKAGE_luci-theme-bootstrap is not set/CONFIG_PACKAGE_luci-theme-bootstrap=y/" .config
-#sed -i "s/# CONFIG_PACKAGE_luci-theme-bootstrap-mod is not set/CONFIG_PACKAGE_luci-theme-bootstrap-mod=y/" .config
 # docker
 #sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/" .config
 # passwall
@@ -89,14 +86,22 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod
 ## 4G/5G 模块操作
 ### AT 指令
 sed -i "s/# CONFIG_PACKAGE_minicom is not set/CONFIG_PACKAGE_minicom=y/" .config
-### SIM 卡操作
-sed -i "s/# CONFIG_PACKAGE_sms-tool is not set/CONFIG_PACKAGE_sms-tool=y/" .config
-### modemband
+### luci-app-modemband 4G/5G 模块绑定
+rm -rf feeds/packages/utils/sms-tool
+rm -rf feeds/packages/net/modemband
+rm -rf feeds/luci/applications/luci-app-modemband
+git clone https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband-tmp
+mv package/luci-app-modemband-tmp/sms-tool feeds/packages/utils/
+mv package/luci-app-modemband-tmp/modemband feeds/packages/net/
+mv package/luci-app-modemband-tmp/luci-app-modemband feeds/luci/applications/
+rm -rf package/luci-app-modemband-tmp
 sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
-### 4G/5G 信息
+### luci-app-3ginfo-lite 4G/5G 信息
+rm -rf feeds/luci/applications/luci-app-3ginfo-lite
+git clone https://github.com/4IceG/luci-app-3ginfo-lite.git package/luci-app-3ginfo-lite-tmp
+mv package/luci-app-modemband-tmp/luci-app-3ginfo-lite feeds/luci/applications/
+rm -rf package/luci-app-3ginfo-lite-tmp
 sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
-
-# 第三方插件
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
 git clone https://github.com/sirpdboy/luci-app-autotimeset.git package/luci-app-autotimeset
 echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
