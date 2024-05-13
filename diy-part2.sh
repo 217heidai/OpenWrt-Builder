@@ -81,9 +81,9 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb
 ### fm350-gl
 git clone --depth 1 https://github.com/koshev-msk/modemfeed.git package/modemfeed
 echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
-echo 'CONFIG_PACKAGE_luci-app-modeminfo' >> .config
-echo 'CONFIG_PACKAGE_luci-app-mmcomig' >> .config
-echo 'CONFIG_PACKAGE_luci-app-smstools3' >> .config
+echo 'CONFIG_PACKAGE_luci-app-modeminfo=y' >> .config
+echo 'CONFIG_PACKAGE_luci-app-mmcomig=y' >> .config
+echo 'CONFIG_PACKAGE_luci-app-smstools3=y' >> .config
 ### modem
 #git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support
 #mv package/5G-Modem-Support/luci-app-modem package/custom/
