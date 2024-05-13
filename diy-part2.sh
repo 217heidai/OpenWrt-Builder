@@ -79,8 +79,8 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb
 ## 4G/5G 模块操作
 ### fm350-gl
 git clone --depth 1 https://github.com/koshev-msk/modemfeed.git package/modemfeed-tmp
-mv modemfeed-tmp/luci/protocols/luci-proto-fm350 package/
-mv modemfeed-tmp/packages/net/fm350-modem package/
+mv package/modemfeed-tmp/luci/protocols/luci-proto-fm350 package/
+mv package/modemfeed-tmp/packages/net/fm350-modem package/
 rm -rf package/modemfeed-tmp
 echo 'CONFIG_PACKAGE_fm350-modem=y' >> .config
 echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
