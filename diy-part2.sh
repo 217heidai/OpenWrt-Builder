@@ -86,9 +86,6 @@ echo 'CONFIG_PACKAGE_luci-app-mmcomig=y' >> .config
 echo 'CONFIG_PACKAGE_luci-app-smstools3=y' >> .config
 ### modem
 #git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support
-#mv package/5G-Modem-Support/luci-app-modem package/custom/
-#mv package/5G-Modem-Support/quectel_cm_5G package/custom/
-#rm -rf package/5G-Modem-Support
 #echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
 ### luci-app-modemband 4G/5G 模块绑定
 git clone --depth 1 https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband
