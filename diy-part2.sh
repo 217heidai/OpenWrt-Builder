@@ -77,20 +77,28 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod
 ## RNDIS
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
 ## 4G/5G 模块操作
+### fm350-gl
+git clone --depth 1 https://github.com/koshev-msk/modemfeed.git package/modemfeed-tmp
+mv modemfeed-tmp/luci/protocols/luci-proto-fm350 package/
+mv modemfeed-tmp/packages/net/fm350-modem package/
+rm -rf package/modemfeed-tmp
+echo 'CONFIG_PACKAGE_fm350-modem=y' >> .config
+echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
+### modem
+git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support-tmp
+mv package/5G-Modem-Support-tmp/luci-app-modem package/
+rm -rf package/5G-Modem-Support-tmp
+echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
 ### luci-app-modemband 4G/5G 模块绑定
+git clone --depth 1 https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband-tmp
+mv package/luci-app-modemband-tmp/luci-app-modemband package/
+rm -rf package/luci-app-modemband-tmp
 sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
 ### luci-app-3ginfo-lite 4G/5G 信息
+git clone --depth 1 https://github.com/4IceG/luci-app-3ginfo-lite.git package/luci-app-3ginfo-lite-tmp
+mv package/luci-app-3ginfo-lite-tmp/luci-app-3ginfo-lite package/
+rm -rf package/luci-app-3ginfo-lite-tmp
 sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
-### FM350-GL 模块
-mkdir -p package/fm350
-git clone --depth 1 https://github.com/kiddin9/openwrt-packages.git package/kiddin9
-mv package/kiddin9/fm350-modem package/fm350/
-echo 'CONFIG_PACKAGE_fm350-modem=y' >> .config
-mv package/kiddin9/luci-proto-fm350 package/fm350/
-echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
-mv package/kiddin9/luci-app-modem package/fm350/
-echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
-rm -rf package/kiddin9
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
 git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset.git package/luci-app-autotimeset
 echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
