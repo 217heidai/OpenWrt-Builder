@@ -33,6 +33,7 @@ sed -i "s/CONFIG_PACKAGE_kmod-sound-via82xx=y/# CONFIG_PACKAGE_kmod-sound-via82x
 sed -i "s/CONFIG_PACKAGE_kmod-usb-audio=y/# CONFIG_PACKAGE_kmod-usb-audio is not set/" .config
 
 # 新增
+mkdir -p package/custom
 # luci
 sed -i "s/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/" .config
 sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_default-settings-chn=y/" .config
@@ -78,38 +79,42 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
 ## 4G/5G 模块操作
 ### fm350-gl
-git clone --depth 1 https://github.com/koshev-msk/modemfeed.git package/modemfeed-tmp
-mv package/modemfeed-tmp/luci/protocols/luci-proto-fm350 package/
-mv package/modemfeed-tmp/packages/net/fm350-modem package/
-rm -rf package/modemfeed-tmp
-echo 'CONFIG_PACKAGE_fm350-modem=y' >> .config
-echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
+#git clone --depth 1 https://github.com/koshev-msk/modemfeed.git package/modemfeed
+#mv package/modemfeed/luci/protocols/luci-proto-fm350 package/custom/
+#mv package/modemfeed/packages/net/fm350-modem package/custom/
+#rm -rf package/modemfeed
+#echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
 ### modem
-git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support-tmp
-mv package/5G-Modem-Support-tmp/luci-app-modem package/
-rm -rf package/5G-Modem-Support-tmp
-echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
+#git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support
+#mv package/5G-Modem-Support/luci-app-modem package/custom/
+#mv package/5G-Modem-Support/quectel_cm_5G package/custom/
+#rm -rf package/5G-Modem-Support
+#echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
 ### luci-app-modemband 4G/5G 模块绑定
-git clone --depth 1 https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband-tmp
-mv package/luci-app-modemband-tmp/luci-app-modemband package/
-rm -rf package/luci-app-modemband-tmp
+git clone --depth 1 https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband
+rm -rf package/feeds/packages/modemband
+rm -rf feeds/packages/net/modemband
+mv package/luci-app-modemband/modemband package/custom/
+rm -rf package/feeds/luci/luci-app-modemband
+rm -rf feeds/luci/applications/luci-app-modemband
+mv package/luci-app-modemband/luci-app-modemband package/custom/
+rm -rf package/luci-app-modemband
 sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
 ### luci-app-3ginfo-lite 4G/5G 信息
-git clone --depth 1 https://github.com/4IceG/luci-app-3ginfo-lite.git package/luci-app-3ginfo-lite-tmp
-mv package/luci-app-3ginfo-lite-tmp/luci-app-3ginfo-lite package/
-rm -rf package/luci-app-3ginfo-lite-tmp
+git clone --depth 1 https://github.com/4IceG/luci-app-3ginfo-lite.git package/luci-app-3ginfo-lite
+rm -rf package/feeds/luci/luci-app-3ginfo-lite
+rm -rf feeds/luci/applications/luci-app-3ginfo-lite
+mv package/luci-app-3ginfo-lite/luci-app-3ginfo-lite package/custom/
+rm -rf package/luci-app-3ginfo-lite
 sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
-git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset.git package/luci-app-autotimeset
+git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset.git package/custom/luci-app-autotimeset
 echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
 ## 依赖
 sed -i "s/# CONFIG_PACKAGE_luci-lib-ipkg is not set/CONFIG_PACKAGE_luci-lib-ipkg=y/" .config
 # 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
-#git clone --depth 1 https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
+#git clone --depth 1 https://github.com/sirpdboy/luci-app-partexp.git package/custom/luci-app-partexp
 #echo 'CONFIG_PACKAGE_luci-app-partexp=y' >> .config
-# istore 应用市场
-#git clone --depth 1 https://github.com/linkease/istore.git package/istore
-#echo 'CONFIG_PACKAGE_luci-app-store=y=y' >> .config
 
 
 # 镜像生成
