@@ -75,16 +75,18 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
 # 4G/5G 支持：FM350-GL USB RNDIS
 ## koshev-msk/modemfeed
-git clone --depth 1 https://github.com/koshev-msk/modemfeed.git package/modemfeed
-echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
-echo 'CONFIG_PACKAGE_luci-app-modeminfo=y' >> .config
-echo 'CONFIG_PACKAGE_luci-app-mmcomig=y' >> .config
-echo 'CONFIG_PACKAGE_luci-app-smstools3=y' >> .config
+#git clone --depth 1 https://github.com/koshev-msk/modemfeed.git package/modemfeed
+#echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
+#echo 'CONFIG_PACKAGE_luci-app-modeminfo=y' >> .config
+#echo 'CONFIG_PACKAGE_luci-app-mmcomig=y' >> .config
+#echo 'CONFIG_PACKAGE_luci-app-smstools3=y' >> .config
 ## Siriling/5G-Modem-Support
-#git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support
-#echo 'CONFIG_PACKAGE_fibocom-dial=y' >> .config
-#echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
-#echo 'CONFIG_PACKAGE_luci-app-sms-tool=y' >> .config
+git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support
+echo 'CONFIG_PACKAGE_pcie_mhi_fb=y' >> .config
+echo 'CONFIG_PACKAGE_qmi_wwan_f=y' >> .config
+echo 'CONFIG_PACKAGE_fibocom-dial=y' >> .config
+echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
+echo 'CONFIG_PACKAGE_luci-app-sms-tool=y' >> .config
 ## 4IceG/luci-app-modemband 4IceG/luci-app-3ginfo-lite
 #git clone --depth 1 https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband
 #rm -rf package/feeds/packages/modemband
@@ -114,7 +116,7 @@ echo 'CONFIG_PACKAGE_luci-app-partexp=y' >> .config
 # 镜像生成
 # 修改分区大小
 #sed -i "s/CONFIG_TARGET_KERNEL_PARTSIZE=32/CONFIG_TARGET_KERNEL_PARTSIZE=32/" .config
-sed -i "s/CONFIG_TARGET_ROOTFS_PARTSIZE=160/CONFIG_TARGET_ROOTFS_PARTSIZE=1024/" .config
+sed -i "s/CONFIG_TARGET_ROOTFS_PARTSIZE=160/CONFIG_TARGET_ROOTFS_PARTSIZE=2048/" .config
 # 调整 GRUB_TIMEOUT
 sed -i "s/CONFIG_GRUB_TIMEOUT=\"3\"/CONFIG_GRUB_TIMEOUT=\"1\"/" .config
 ## 不生成 EXT4 硬盘格式镜像
