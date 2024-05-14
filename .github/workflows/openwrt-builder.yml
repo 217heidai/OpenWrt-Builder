@@ -131,7 +131,9 @@ jobs:
           rm -rf sha256sums
           rm -rf immortalwrt-x86-64-generic-kernel.bin
           rm -rf immortalwrt-x86-64-generic.manifest
+          rm -rf immortalwrt-x86-64-generic-squashfs-rootfs.img.gz
           mv immortalwrt-x86-64-generic-rootfs.tar.gz immortalwrt-${{ env.VERSION }}-x86-64-generic-rootfs-${{ env.COMPILE_DATE }}.tar.gz
+          mv immortalwrt-x86-64-generic-squashfs-combined-efi.img.gz immortalwrt-${{ env.VERSION }}-x86-64-generic-squashfs-combined-efi-${{ env.COMPILE_DATE }}.img.gz
 
       - name: Upload firmware to release
         if: steps.compile.outputs.status == 'success' && !cancelled()
