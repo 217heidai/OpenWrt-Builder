@@ -75,32 +75,32 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
 # 4G/5G 支持：FM350-GL USB RNDIS
 ## koshev-msk/modemfeed
-#git clone --depth 1 https://github.com/koshev-msk/modemfeed.git package/modemfeed
-#echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
-#echo 'CONFIG_PACKAGE_luci-app-modeminfo=y' >> .config
-#echo 'CONFIG_PACKAGE_luci-app-mmcomig=y' >> .config
-#echo 'CONFIG_PACKAGE_luci-app-smstools3=y' >> .config
+git clone --depth 1 https://github.com/koshev-msk/modemfeed.git package/modemfeed
+echo 'CONFIG_PACKAGE_luci-proto-fm350=y' >> .config
+echo 'CONFIG_PACKAGE_luci-app-modeminfo=y' >> .config
+echo 'CONFIG_PACKAGE_luci-app-mmcomig=y' >> .config
+echo 'CONFIG_PACKAGE_luci-app-smstools3=y' >> .config
 ## Siriling/5G-Modem-Support
-git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support
-echo 'CONFIG_PACKAGE_fibocom-dial=y' >> .config
-echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
-echo 'CONFIG_PACKAGE_luci-app-sms-tool=y' >> .config
+#git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support
+#echo 'CONFIG_PACKAGE_fibocom-dial=y' >> .config
+#echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
+#echo 'CONFIG_PACKAGE_luci-app-sms-tool=y' >> .config
 ## 4IceG/luci-app-modemband 4IceG/luci-app-3ginfo-lite
-git clone --depth 1 https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband
-rm -rf package/feeds/packages/modemband
-rm -rf feeds/packages/net/modemband
-mv package/luci-app-modemband/modemband package/custom/
-rm -rf package/feeds/luci/luci-app-modemband
-rm -rf feeds/luci/applications/luci-app-modemband
-mv package/luci-app-modemband/luci-app-modemband package/custom/
-rm -rf package/luci-app-modemband
-sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
-git clone --depth 1 https://github.com/4IceG/luci-app-3ginfo-lite.git package/luci-app-3ginfo-lite
-rm -rf package/feeds/luci/luci-app-3ginfo-lite
-rm -rf feeds/luci/applications/luci-app-3ginfo-lite
-mv package/luci-app-3ginfo-lite/luci-app-3ginfo-lite package/custom/
-rm -rf package/luci-app-3ginfo-lite
-sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
+#git clone --depth 1 https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband
+#rm -rf package/feeds/packages/modemband
+#rm -rf feeds/packages/net/modemband
+#mv package/luci-app-modemband/modemband package/custom/
+#rm -rf package/feeds/luci/luci-app-modemband
+#rm -rf feeds/luci/applications/luci-app-modemband
+#mv package/luci-app-modemband/luci-app-modemband package/custom/
+#rm -rf package/luci-app-modemband
+#sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
+#git clone --depth 1 https://github.com/4IceG/luci-app-3ginfo-lite.git package/luci-app-3ginfo-lite
+#rm -rf package/feeds/luci/luci-app-3ginfo-lite
+#rm -rf feeds/luci/applications/luci-app-3ginfo-lite
+#mv package/luci-app-3ginfo-lite/luci-app-3ginfo-lite package/custom/
+#rm -rf package/luci-app-3ginfo-lite
+#sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
 git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset.git package/custom/luci-app-autotimeset
 echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
