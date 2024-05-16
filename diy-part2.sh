@@ -10,6 +10,12 @@
 # See /LICENSE for more information.
 #
 
+function drop_package(){
+    find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
+    find feed/ -follow -name $1 | xargs -rt rm -rf
+}
+
+
 # Add the default password for the 'root' user（Change the empty password to 'password'）
 sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.::0:99999:7:::/g' package/base-files/files/etc/shadow
 
@@ -33,7 +39,6 @@ sed -i "s/CONFIG_PACKAGE_kmod-sound-via82xx=y/# CONFIG_PACKAGE_kmod-sound-via82x
 sed -i "s/CONFIG_PACKAGE_kmod-usb-audio=y/# CONFIG_PACKAGE_kmod-usb-audio is not set/" .config
 
 # 新增
-mkdir -p package/custom
 # luci
 sed -i "s/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/" .config
 sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_default-settings-chn=y/" .config
@@ -75,35 +80,21 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
 # 4G/5G 支持：FM350-GL USB RNDIS
 ## Siriling/5G-Modem-Support
-git clone --depth 1 https://github.com/Siriling/5G-Modem-Support.git package/5G-Modem-Support
-echo 'CONFIG_PACKAGE_pcie_mhi_fb=y' >> .config
-echo 'CONFIG_PACKAGE_qmi_wwan_f=y' >> .config
 echo 'CONFIG_PACKAGE_fibocom-dial=y' >> .config
 echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
 echo 'CONFIG_PACKAGE_luci-app-sms-tool=y' >> .config
-## 4IceG/luci-app-modemband 4IceG/luci-app-3ginfo-lite
+## luci-app-modemband
 git clone --depth 1 https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband
-rm -rf package/feeds/packages/modemband
-rm -rf feeds/packages/net/modemband
-mv package/luci-app-modemband/modemband package/custom/
-rm -rf package/feeds/luci/luci-app-modemband
-rm -rf feeds/luci/applications/luci-app-modemband
-mv package/luci-app-modemband/luci-app-modemband package/custom/
-rm -rf package/luci-app-modemband
+drop_package modemband
+drop_package luci-app-modemband
 sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
-git clone --depth 1 https://github.com/4IceG/luci-app-3ginfo-lite.git package/luci-app-3ginfo-lite
-rm -rf package/feeds/luci/luci-app-3ginfo-lite
-rm -rf feeds/luci/applications/luci-app-3ginfo-lite
-mv package/luci-app-3ginfo-lite/luci-app-3ginfo-lite package/custom/
-rm -rf package/luci-app-3ginfo-lite
+## luci-app-3ginfo-lite
+drop_package luci-app-3ginfo-lite
 sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
 # 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
-git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset.git package/custom/luci-app-autotimeset
 echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
-## 依赖
 sed -i "s/# CONFIG_PACKAGE_luci-lib-ipkg is not set/CONFIG_PACKAGE_luci-lib-ipkg=y/" .config
 # 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
-git clone --depth 1 https://github.com/sirpdboy/luci-app-partexp.git package/custom/luci-app-partexp
 echo 'CONFIG_PACKAGE_luci-app-partexp=y' >> .config
 
 
