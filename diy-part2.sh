@@ -84,7 +84,6 @@ echo 'CONFIG_PACKAGE_fibocom-dial=y' >> .config
 echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
 echo 'CONFIG_PACKAGE_luci-app-sms-tool=y' >> .config
 ## luci-app-modemband
-git clone --depth 1 https://github.com/4IceG/luci-app-modemband.git package/luci-app-modemband
 drop_package modemband
 drop_package luci-app-modemband
 sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
