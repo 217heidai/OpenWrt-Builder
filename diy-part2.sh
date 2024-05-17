@@ -53,7 +53,6 @@ sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
 sed -i "s/# CONFIG_PACKAGE_luci-app-ttyd is not set/CONFIG_PACKAGE_luci-app-ttyd=y/" .config
 # argon 主题
 sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
-#sed -i "s/# CONFIG_PACKAGE_luci-app-argon-config is not set/CONFIG_PACKAGE_luci-app-argon-config=y/" .config
 # docker
 sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/" .config
 # passwall
@@ -94,6 +93,8 @@ echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
 sed -i "s/# CONFIG_PACKAGE_luci-lib-ipkg is not set/CONFIG_PACKAGE_luci-lib-ipkg=y/" .config
 # 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
 echo 'CONFIG_PACKAGE_luci-app-partexp=y' >> .config
+# iStore 应用市场
+echo 'CONFIG_PACKAGE_luci-app-store=y' >> .config
 
 
 # 镜像生成
