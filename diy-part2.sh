@@ -80,7 +80,6 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
 # 4G/5G 支持：FM350-GL USB RNDIS
 ## Siriling/5G-Modem-Support
-echo 'CONFIG_PACKAGE_fibocom-dial=y' >> .config
 echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
 echo 'CONFIG_PACKAGE_luci-app-sms-tool=y' >> .config
 ## luci-app-modemband
