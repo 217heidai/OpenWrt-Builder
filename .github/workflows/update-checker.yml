@@ -14,7 +14,7 @@ name: Update Checker
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: openwrt-23.05
+  REPO_BRANCH: master
 
 on:
   workflow_dispatch:

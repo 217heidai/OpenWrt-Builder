@@ -77,18 +77,13 @@ sed -i "s/# CONFIG_PACKAGE_usb-modeswitch is not set/CONFIG_PACKAGE_usb-modeswit
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial is not set/CONFIG_PACKAGE_kmod-usb-serial=y/" .config
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod-usb-serial-option=y/" .config
 sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
+## passwall
+sed -i "s/# CONFIG_PACKAGE_luci-app-passwall is not set/CONFIG_PACKAGE_luci-app-passwall=y/" .config
 
 # 第三方软件包
 mkdir -p package/custom
 git clone --depth 1  https://github.com/217heidai/OpenWrt-Packages.git package/custom
 clean_packages package/custom
-## passwall
-sed -i "s/# CONFIG_PACKAGE_luci-app-passwall is not set/CONFIG_PACKAGE_luci-app-passwall=y/" .config
-### shadowsocks_rust 替代 shadowsocks_libev，否则无法正常编译
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client is not set/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server is not set/" .config
-sed -i "s/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client is not set/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client=y/" .config
-sed -i "s/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server is not set/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server=y/" .config
 ## 4G/5G 支持：FM350-GL USB RNDIS
 ### Siriling/5G-Modem-Support
 echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config

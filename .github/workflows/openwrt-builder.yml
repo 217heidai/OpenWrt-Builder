@@ -19,9 +19,8 @@ on:
 
 env:
   VENDOR: immortalwrt
-  VERSION: 23.05
   REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: openwrt-23.05
+  REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
@@ -132,8 +131,8 @@ jobs:
           rm -rf immortalwrt-x86-64-generic-kernel.bin
           rm -rf immortalwrt-x86-64-generic.manifest
           rm -rf immortalwrt-x86-64-generic-squashfs-rootfs.img.gz
-          mv immortalwrt-x86-64-generic-rootfs.tar.gz immortalwrt-${{ env.VERSION }}-x86-64-generic-rootfs-${{ env.COMPILE_DATE }}.tar.gz
-          mv immortalwrt-x86-64-generic-squashfs-combined-efi.img.gz immortalwrt-${{ env.VERSION }}-x86-64-generic-squashfs-combined-efi-${{ env.COMPILE_DATE }}.img.gz
+          mv immortalwrt-x86-64-generic-rootfs.tar.gz immortalwrt-x86-64-generic-rootfs-${{ env.COMPILE_DATE }}.tar.gz
+          mv immortalwrt-x86-64-generic-squashfs-combined-efi.img.gz immortalwrt-x86-64-generic-squashfs-combined-efi-${{ env.COMPILE_DATE }}.img.gz
 
       - name: Upload firmware to release
         if: steps.compile.outputs.status == 'success' && !cancelled()
@@ -143,7 +142,7 @@ jobs:
           file_glob: true
           file: openwrt/bin/targets/x86/64/*
           asset_name: ${{ github.event.repository.name }}-${{ github.sha }}
-          tag: ${{ env.VENDOR }}-${{env.VERSION}}-x86_64-${{ env.COMPILE_DATE }}
+          tag: ${{ env.VENDOR }}-x86_64-${{ env.COMPILE_DATE }}
           body: |
             ### OpenWrt Image information
             - Default IP: 192.168.3.1
