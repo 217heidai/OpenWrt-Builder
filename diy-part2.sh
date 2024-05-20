@@ -11,8 +11,9 @@
 #
 
 function drop_package(){
+    # feeds/base -> package
     find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
-    find feeds/ -follow -name $1 | xargs -rt rm -rf
+    find feeds/ -follow -name $1 -not -path "feeds/base/custom/*" | xargs -rt rm -rf
 }
 function clean_packages(){
     path=$1
