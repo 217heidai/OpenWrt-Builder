@@ -29,7 +29,7 @@ jobs:
     - name: Get commit hash
       id: getHash
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
+        git clone -b $REPO_BRANCH --single-branch --depth 1 $REPO_URL openwrt
         echo "commitHash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
     - name: Compare commit hash
@@ -51,7 +51,7 @@ jobs:
         event-type: on-update
 
     - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@v2
+      uses: Mattraks/delete-workflow-runs@main
       with:
         retain_days: 0
         keep_minimum_runs: 2
