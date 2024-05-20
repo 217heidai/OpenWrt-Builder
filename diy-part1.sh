@@ -11,8 +11,4 @@
 #
 
 # 使用 Linux 6.6 内核
-sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=6.6/g' ./target/linux/x86/Makefile
-
-# 第三方软件包
-mkdir -p package/custom
-git clone --depth 1  https://github.com/217heidai/OpenWrt-Packages.git package/custom
+#sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=6.6/g' target/linux/x86/Makefile
