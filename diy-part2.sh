@@ -14,7 +14,7 @@ function drop_package(){
     find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
     find feed/ -follow -name $1 | xargs -rt rm -rf
 }
-function clean_packages() {
+function clean_packages(){
     path=$1
     dir=$(ls -l ${path} | awk '/^d/ {print $NF}')
     for item in ${dir}
