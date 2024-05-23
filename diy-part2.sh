@@ -11,9 +11,11 @@
 #
 
 function drop_package(){
-    # feeds/base -> package
-    find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
-    find feeds/ -follow -name $1 -not -path "feeds/base/custom/*" | xargs -rt rm -rf
+    if [ "$1" != "golang" ];then
+        # feeds/base -> package
+        find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
+        find feeds/ -follow -name $1 -not -path "feeds/base/custom/*" | xargs -rt rm -rf
+    fi
 }
 function clean_packages(){
     path=$1
@@ -79,6 +81,9 @@ sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb
 mkdir -p package/custom
 git clone --depth 1  https://github.com/217heidai/OpenWrt-Packages.git package/custom
 clean_packages package/custom
+# golang
+rm -rf feeds/packages/lang/golang
+mv package/custom/golang feeds/packages/lang/
 # argon 主题
 sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
 ## passwall
