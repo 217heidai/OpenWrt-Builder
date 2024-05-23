@@ -24,7 +24,7 @@ env:
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
+  DIY_P2_SH: diy-part2-router.sh
   TZ: Asia/Shanghai
 
 jobs:
@@ -143,9 +143,9 @@ jobs:
           file_glob: true
           file: openwrt/bin/targets/x86/64/*
           asset_name: ${{ github.event.repository.name }}-${{ github.sha }}
-          tag: immortalwrt-${{ env.VERSION }}-x86_64-${{ env.COMPILE_DATE }}
+          tag: router-immortalwrt-${{ env.VERSION }}-x86_64-${{ env.COMPILE_DATE }}
           body: |
-            ### OpenWrt Image information
+            ### 主路由
             - Default IP: 192.168.3.1
             - Default username: root
             - Default password: password
