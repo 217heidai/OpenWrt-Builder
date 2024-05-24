@@ -10,6 +10,24 @@
 # See /LICENSE for more information.
 #
 
+function config_package_del(){
+    package_yes="CONFIG_PACKAGE_$1=y"
+    package_no="# CONFIG_PACKAGE_$1 is not set"
+
+    sed -i "s/$package_yes/$package_no/" .config
+}
+
+function config_package_add(){
+    package_yes="CONFIG_PACKAGE_$1=y"
+    package_no="# CONFIG_PACKAGE_$1 is not set"
+
+    sed -i "s/${package_no}/${package_yes}/" .config
+
+    if ! grep -q "$package_yes" .config; then
+        echo "$package_yes" >> .config
+    fi
+}
+
 function drop_package(){
     if [ "$1" != "golang" ];then
         # feeds/base -> package
@@ -37,76 +55,76 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 # 删除
 # Base system
-sed -i "s/CONFIG_PACKAGE_block-mount=y/# CONFIG_PACKAGE_block-mount is not set/" .config
+config_package_del block-mount
 # Extra packages
-sed -i "s/CONFIG_PACKAGE_automount=y/# CONFIG_PACKAGE_automount is not set/" .config
+config_package_del automount
 # Network Devices
-sed -i "s/CONFIG_PACKAGE_kmod-8139cp=y/# CONFIG_PACKAGE_kmod-8139cp is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-8139too=y/# CONFIG_PACKAGE_kmod-8139too is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-amazon-ena=y/# CONFIG_PACKAGE_kmod-amazon-ena is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-amd-xgbe=y/# CONFIG_PACKAGE_kmod-amd-xgbe is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-bnx2=y/# CONFIG_PACKAGE_kmod-bnx2 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-forcedeth=y/# CONFIG_PACKAGE_kmod-forcedeth is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-i40e=y/# CONFIG_PACKAGE_kmod-i40e is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-igb=y/# CONFIG_PACKAGE_kmod-igb is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-igbvf=y/# CONFIG_PACKAGE_kmod-igbvf is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-igc=y/# CONFIG_PACKAGE_kmod-igc is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-ixgbe=y/# CONFIG_PACKAGE_kmod-ixgbe is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-macvlan=y/# CONFIG_PACKAGE_kmod-macvlan is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-mdio-devres=y/# CONFIG_PACKAGE_kmod-mdio-devres is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-mii=y/# CONFIG_PACKAGE_kmod-mii is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-net-selftests=y/# CONFIG_PACKAGE_kmod-net-selftests is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-pcnet32=y/# CONFIG_PACKAGE_kmod-pcnet32 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-phy-ax88796b=y/# CONFIG_PACKAGE_kmod-phy-ax88796b is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-r8101=y/# CONFIG_PACKAGE_kmod-r8101 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-r8125=y/# CONFIG_PACKAGE_kmod-r8125 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-r8168=y/# CONFIG_PACKAGE_kmod-r8168 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-tg3=y/# CONFIG_PACKAGE_kmod-tg3 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-tulip=y/# CONFIG_PACKAGE_kmod-tulip is not set/" .config
+config_package_del kmod-8139cp
+config_package_del kmod-8139too
+config_package_del kmod-amazon-ena
+config_package_del kmod-amd-xgbe
+config_package_del kmod-bnx2
+config_package_del kmod-forcedeth
+config_package_del kmod-i40e
+config_package_del kmod-igb
+config_package_del kmod-igbvf
+config_package_del kmod-igc
+config_package_del kmod-ixgbe
+config_package_del kmod-macvlan
+config_package_del kmod-mdio-devres
+config_package_del kmod-mii
+config_package_del kmod-net-selftests
+config_package_del kmod-pcnet32
+config_package_del kmod-phy-ax88796b
+config_package_del kmod-r8101
+config_package_del kmod-r8125
+config_package_del kmod-r8168
+config_package_del kmod-tg3
+config_package_del kmod-tulip
 # Network Support
-sed -i "s/CONFIG_PACKAGE_kmod-ppp=y/# CONFIG_PACKAGE_kmod-ppp is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-mppe=y/# CONFIG_PACKAGE_kmod-mppe is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-pppoe=y/# CONFIG_PACKAGE_kmod-pppoe is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-pppox=y/# CONFIG_PACKAGE_kmod-pppox is not set/" .config
+config_package_del kmod-ppp
+config_package_del kmod-mppe
+config_package_del kmod-pppoe
+config_package_del kmod-pppox
 # Sound Support
-sed -i "s/CONFIG_PACKAGE_kmod-sound-core=y/# CONFIG_PACKAGE_kmod-sound-core is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-ac97=y/# CONFIG_PACKAGE_kmod-ac97 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-core=y/# CONFIG_PACKAGE_kmod-sound-hda-core is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-codec-hdmi=y/# CONFIG_PACKAGE_kmod-sound-hda-codec-hdmi is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-codec-realtek=y/# CONFIG_PACKAGE_kmod-sound-hda-codec-realtek is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-codec-via=y/# CONFIG_PACKAGE_kmod-sound-hda-codec-via is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-intel=y/# CONFIG_PACKAGE_kmod-sound-hda-intel is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-i8x0=y/# CONFIG_PACKAGE_kmod-sound-i8x0 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-mpu401=y/# CONFIG_PACKAGE_kmod-sound-mpu401 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-via82xx=y/# CONFIG_PACKAGE_kmod-sound-via82xx is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-audio=y/# CONFIG_PACKAGE_kmod-usb-audio is not set/" .config
+config_package_del kmod-sound-core
+config_package_del kmod-ac97
+config_package_del kmod-sound-hda-core
+config_package_del kmod-sound-hda-codec-hdmi
+config_package_del kmod-sound-hda-codec-realtek
+config_package_del kmod-sound-hda-codec-via
+config_package_del kmod-sound-hda-intel
+config_package_del kmod-sound-i8x0
+config_package_del kmod-sound-mpu401
+config_package_del kmod-sound-via82xx
+config_package_del kmod-usb-audio
 # USB Support
-sed -i "s/CONFIG_PACKAGE_kmod-usb-core=y/# CONFIG_PACKAGE_kmod-usb-core is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-hid=y/# CONFIG_PACKAGE_kmod-usb-hid is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-net=y/# CONFIG_PACKAGE_kmod-usb-net is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-net-asix=y/# CONFIG_PACKAGE_kmod-usb-net-asix is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-net-asix-ax88179=y/# CONFIG_PACKAGE_kmod-usb-net-asix-ax88179 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-net-rtl8150=y/# CONFIG_PACKAGE_kmod-usb-net-rtl8150 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-net-rtl8152-vendor=y/# CONFIG_PACKAGE_kmod-usb-net-rtl8152-vendor is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-storage=y/# CONFIG_PACKAGE_kmod-usb-storage is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-storage-extras=y/# CONFIG_PACKAGE_kmod-usb-storage-extras is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-storage-uas=y/# CONFIG_PACKAGE_kmod-usb-storage-uas is not set/" .config
+config_package_del kmod-usb-core
+config_package_del kmod-usb-hid
+config_package_del kmod-usb-net
+config_package_del kmod-usb-net-asix
+config_package_del kmod-usb-net-asix-ax88179
+config_package_del kmod-usb-net-rtl8150
+config_package_del kmod-usb-net-rtl8152-vendor
+config_package_del kmod-usb-storage
+config_package_del kmod-usb-storage-extras
+config_package_del kmod-usb-storage-uas
 
 # 新增
 # luci
-sed -i "s/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/" .config
-sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_default-settings-chn=y/" .config
+config_package_add luci
+config_package_add default-settings-chn
 # coremark cpu 跑分
-sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
+config_package_add coremark
 # autocore + lm-sensors-detect： cpu 频率、温度
-sed -i "s/# CONFIG_PACKAGE_autocore is not set/CONFIG_PACKAGE_autocore=y/" .config
-sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect=y/" .config
+config_package_add autocore
+config_package_add lm-sensors-detect
 # nano 替代 vim
-sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
+config_package_add nano
 # upnp
-sed -i "s/# CONFIG_PACKAGE_luci-app-upnp is not set/CONFIG_PACKAGE_luci-app-upnp=y/" .config
+config_package_add luci-app-upnp
 # 定时重启
-sed -i "s/# CONFIG_PACKAGE_luci-app-autoreboot is not set/CONFIG_PACKAGE_luci-app-autoreboot=y/" .config
+config_package_add luci-app-autoreboot
 
 # 第三方软件包
 mkdir -p package/custom
@@ -116,14 +134,16 @@ clean_packages package/custom
 rm -rf feeds/packages/lang/golang
 mv package/custom/golang feeds/packages/lang/
 # argon 主题
-sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
+config_package_add luci-theme-argon
 ## passwall
-sed -i "s/# CONFIG_PACKAGE_luci-app-passwall is not set/CONFIG_PACKAGE_luci-app-passwall=y/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client is not set/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server is not set/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client is not set/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server is not set/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client is not set/" .config
+config_package_add luci-app-passwall
+config_package_add luci-app-passwall_Nftables_Transparent_Proxy
+config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client
+config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server
+config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client
+config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server
+config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client
+config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server
 
 # 镜像生成
 # 修改分区大小

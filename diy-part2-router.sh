@@ -10,6 +10,24 @@
 # See /LICENSE for more information.
 #
 
+function config_package_del(){
+    package_yes="CONFIG_PACKAGE_$1=y"
+    package_no="# CONFIG_PACKAGE_$1 is not set"
+
+    sed -i "s/$package_yes/$package_no/" .config
+}
+
+function config_package_add(){
+    package_yes="CONFIG_PACKAGE_$1=y"
+    package_no="# CONFIG_PACKAGE_$1 is not set"
+
+    sed -i "s/${package_no}/${package_yes}/" .config
+
+    if ! grep -q "$package_yes" .config; then
+        echo "$package_yes" >> .config
+    fi
+}
+
 function drop_package(){
     if [ "$1" != "golang" ];then
         # feeds/base -> package
@@ -37,46 +55,46 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 # 删除
 # Sound Support
-sed -i "s/CONFIG_PACKAGE_kmod-sound-core=y/# CONFIG_PACKAGE_kmod-sound-core is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-ac97=y/# CONFIG_PACKAGE_kmod-ac97 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-core=y/# CONFIG_PACKAGE_kmod-sound-hda-core is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-codec-hdmi=y/# CONFIG_PACKAGE_kmod-sound-hda-codec-hdmi is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-codec-realtek=y/# CONFIG_PACKAGE_kmod-sound-hda-codec-realtek is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-codec-via=y/# CONFIG_PACKAGE_kmod-sound-hda-codec-via is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-hda-intel=y/# CONFIG_PACKAGE_kmod-sound-hda-intel is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-i8x0=y/# CONFIG_PACKAGE_kmod-sound-i8x0 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-mpu401=y/# CONFIG_PACKAGE_kmod-sound-mpu401 is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-sound-via82xx=y/# CONFIG_PACKAGE_kmod-sound-via82xx is not set/" .config
-sed -i "s/CONFIG_PACKAGE_kmod-usb-audio=y/# CONFIG_PACKAGE_kmod-usb-audio is not set/" .config
+config_package_del kmod-sound-core
+config_package_del kmod-ac97
+config_package_del kmod-sound-hda-core
+config_package_del kmod-sound-hda-codec-hdmi
+config_package_del kmod-sound-hda-codec-realtek
+config_package_del kmod-sound-hda-codec-via
+config_package_del kmod-sound-hda-intel
+config_package_del kmod-sound-i8x0
+config_package_del kmod-sound-mpu401
+config_package_del kmod-sound-via82xx
+config_package_del kmod-usb-audio
 
 # 新增
 # luci
-sed -i "s/# CONFIG_PACKAGE_luci is not set/CONFIG_PACKAGE_luci=y/" .config
-sed -i "s/# CONFIG_PACKAGE_default-settings-chn is not set/CONFIG_PACKAGE_default-settings-chn=y/" .config
+config_package_add luci
+config_package_add default-settings-chn
 # coremark cpu 跑分
-sed -i "s/# CONFIG_PACKAGE_coremark is not set/CONFIG_PACKAGE_coremark=y/" .config
+config_package_add coremark
 # autocore + lm-sensors-detect： cpu 频率、温度
-sed -i "s/# CONFIG_PACKAGE_autocore is not set/CONFIG_PACKAGE_autocore=y/" .config
-sed -i "s/# CONFIG_PACKAGE_lm-sensors-detect is not set/CONFIG_PACKAGE_lm-sensors-detect=y/" .config
+config_package_add autocore
+config_package_add lm-sensors-detect
 # nano 替代 vim
-sed -i "s/# CONFIG_PACKAGE_nano is not set/CONFIG_PACKAGE_nano=y/" .config
+config_package_add nano
 # tty 终端
-sed -i "s/# CONFIG_PACKAGE_luci-app-ttyd is not set/CONFIG_PACKAGE_luci-app-ttyd=y/" .config
+config_package_add luci-app-ttyd
 # docker
-sed -i "s/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/" .config
+config_package_add luci-app-dockerman
 # upnp
-sed -i "s/# CONFIG_PACKAGE_luci-app-upnp is not set/CONFIG_PACKAGE_luci-app-upnp=y/" .config
+config_package_add luci-app-upnp
 # kms
-sed -i "s/# CONFIG_PACKAGE_luci-app-vlmcsd is not set/CONFIG_PACKAGE_luci-app-vlmcsd=y/" .config
+config_package_add luci-app-vlmcsd
 # usb 2.0 3.0 支持
-sed -i "s/# CONFIG_PACKAGE_kmod-usb2 is not set/CONFIG_PACKAGE_kmod-usb2=y/" .config
-sed -i "s/# CONFIG_PACKAGE_kmod-usb3 is not set/CONFIG_PACKAGE_kmod-usb3=y/" .config
+config_package_add kmod-usb2
+config_package_add kmod-usb3
 # usb 网络支持
-sed -i "s/# CONFIG_PACKAGE_usbutils is not set/CONFIG_PACKAGE_usbutils=y/" .config
-sed -i "s/# CONFIG_PACKAGE_usb-modeswitch is not set/CONFIG_PACKAGE_usb-modeswitch=y/" .config
-sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial is not set/CONFIG_PACKAGE_kmod-usb-serial=y/" .config
-sed -i "s/# CONFIG_PACKAGE_kmod-usb-serial-option is not set/CONFIG_PACKAGE_kmod-usb-serial-option=y/" .config
-sed -i "s/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/" .config
+config_package_add usbutils
+config_package_add usb-modeswitch
+config_package_add kmod-usb-serial
+config_package_add kmod-usb-serial-option
+config_package_add kmod-usb-net-rndis
 
 # 第三方软件包
 mkdir -p package/custom
@@ -86,31 +104,31 @@ clean_packages package/custom
 rm -rf feeds/packages/lang/golang
 mv package/custom/golang feeds/packages/lang/
 # argon 主题
-sed -i "s/# CONFIG_PACKAGE_luci-theme-argon is not set/CONFIG_PACKAGE_luci-theme-argon=y/" .config
+config_package_add luci-theme-argon
 ## passwall
-sed -i "s/# CONFIG_PACKAGE_luci-app-passwall is not set/CONFIG_PACKAGE_luci-app-passwall=y/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client is not set/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server is not set/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client is not set/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server is not set/" .config
-sed -i "s/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client is not set/" .config
-
+config_package_add luci-app-passwall
+config_package_add luci-app-passwall_Nftables_Transparent_Proxy
+config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client
+config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server
+config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client
+config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server
+config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client
+config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server
 ## 4G/5G 支持：FM350-GL USB RNDIS
 ### Siriling/5G-Modem-Support
-echo 'CONFIG_PACKAGE_luci-app-modem=y' >> .config
-echo 'CONFIG_PACKAGE_luci-app-sms-tool=y' >> .config
+config_package_add luci-app-modem
+config_package_add luci-app-sms-tool
 ### luci-app-modemband
-sed -i "s/# CONFIG_PACKAGE_luci-app-modemband is not set/CONFIG_PACKAGE_luci-app-modemband=y/" .config
+config_package_add luci-app-modemband
 ### luci-app-3ginfo-lite
-sed -i "s/# CONFIG_PACKAGE_luci-app-3ginfo-lite is not set/CONFIG_PACKAGE_luci-app-3ginfo-lite=y/" .config
+config_package_add luci-app-3ginfo-lite
 ## 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
-echo 'CONFIG_PACKAGE_luci-app-autotimeset=y' >> .config
-sed -i "s/# CONFIG_PACKAGE_luci-lib-ipkg is not set/CONFIG_PACKAGE_luci-lib-ipkg=y/" .config
+config_package_add luci-app-autotimeset
+config_package_add luci-lib-ipkg
 ## 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
-echo 'CONFIG_PACKAGE_luci-app-partexp=y' >> .config
+config_package_add luci-app-partexp
 ## iStore 应用市场
-#echo 'CONFIG_PACKAGE_luci-app-store=y' >> .config
-
+#config_package_add luci-app-store
 
 # 镜像生成
 # 修改分区大小

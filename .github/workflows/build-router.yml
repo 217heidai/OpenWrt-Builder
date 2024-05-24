@@ -125,7 +125,7 @@ jobs:
       - name: Organize compiled firmware
         if: steps.compile.outputs.status == 'success' && !cancelled()
         run: |
-          cp -rf openwrt/.config openwrt/bin/targets/x86/64/
+          cp -rf openwrt/.config openwrt/bin/targets/x86/64/config
           cd openwrt/bin/targets/x86/64
           rm -rf *.buildinfo
           rm -rf profiles.json
