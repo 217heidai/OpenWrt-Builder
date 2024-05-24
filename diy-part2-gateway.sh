@@ -138,6 +138,7 @@ config_package_add luci-theme-argon
 ## passwall
 config_package_add luci-app-passwall
 config_package_add luci-app-passwall_Nftables_Transparent_Proxy
+config_package_del luci-app-passwall_Iptables_Transparent_Proxy
 config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client
 config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server
 config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client
