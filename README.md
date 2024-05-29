@@ -10,16 +10,15 @@
 
 ### 添加
 1. 升级 golang 版本（geodata、xray 等依赖高版本 go）。
-2. 添加 CUP 跑分、频率、温度组件。
+2. 更换 argon 主题。
 3. 添加 ttyd 终端。
 4. 添加 docker 服务。
 5. 添加 upnp 服务。
 6. 添加 kms 服务。
-7. 添加 argon 主题。
-8. 添加 passwall。
-9. 添加 usb、pci 4/5G 模块拨号、短信、基站锁定等功能。
-10. 添加多功能定时任务。
-11. 添加 iStore 应用市场。
+7. 添加 passwall。
+8. 添加 usb、pci 4/5G 模块拨号、短信、基站锁定等功能。
+9. 添加多功能定时任务。
+10. 添加 iStore 应用市场。
 
 ## 安装
 此处不再赘述。
@@ -44,11 +43,10 @@
 
 ### 添加
 1. 升级 golang 版本（geodata、xray 等依赖高版本 go）。
-2. 添加 CUP 跑分、频率、温度组件。
+2. 更换 argon 主题。
 3. 添加 upnp 服务。
 4. 添加定时重启。
-5. 添加 argon 主题。
-6. 添加 passwall。
+5. 添加 passwall。
 
 ## 安装
 注意：
