@@ -118,7 +118,7 @@ config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server
 ## 4G/5G 支持：FM350-GL USB RNDIS
 ### Siriling/5G-Modem-Support
 config_package_add luci-app-modem
-config_package_add luci-app-sms-tool
+config_package_add luci-app-sms-tool-js
 ### luci-app-modemband
 config_package_add luci-app-modemband
 ### luci-app-3ginfo-lite
