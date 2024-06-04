@@ -133,8 +133,10 @@ config_package_add luci-app-store
 
 # 镜像生成
 # 修改分区大小
-#sed -i "s/CONFIG_TARGET_KERNEL_PARTSIZE=32/CONFIG_TARGET_KERNEL_PARTSIZE=32/" .config
-sed -i "s/CONFIG_TARGET_ROOTFS_PARTSIZE=160/CONFIG_TARGET_ROOTFS_PARTSIZE=2048/" .config
+sed -i "/CONFIG_TARGET_KERNEL_PARTSIZE/d" config
+echo "CONFIG_TARGET_KERNEL_PARTSIZE=32" >> .config
+sed -i "/CONFIG_TARGET_ROOTFS_PARTSIZE/d" config
+echo "CONFIG_TARGET_ROOTFS_PARTSIZE=2048" >> .config
 # 调整 GRUB_TIMEOUT
 sed -i "s/CONFIG_GRUB_TIMEOUT=\"3\"/CONFIG_GRUB_TIMEOUT=\"1\"/" .config
 ## 不生成 EXT4 硬盘格式镜像
