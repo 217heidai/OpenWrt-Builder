@@ -13,7 +13,7 @@
 # 使用 O2 级别的优化
 sed -i 's,Os,O2 -march=x86-64-v2,g' include/target.mk
 
-# Disable Mitigations
+# 关闭 Spectre & Meltdown 补丁
 sed -i 's,noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-efi.cfg
 sed -i 's,noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-iso.cfg
 sed -i 's,noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-pc.cfg
