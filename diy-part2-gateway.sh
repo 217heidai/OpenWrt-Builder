@@ -10,22 +10,32 @@
 # See /LICENSE for more information.
 #
 
-function config_package_del(){
-    package_yes="CONFIG_PACKAGE_$1=y"
-    package_no="# CONFIG_PACKAGE_$1 is not set"
+function config_del(){
+    yes="CONFIG_$1=y"
+    no="# CONFIG_$1 is not set"
 
-    sed -i "s/$package_yes/$package_no/" .config
+    sed -i "s/$yes/$no/" .config
+}
+
+function config_add(){
+    yes="CONFIG_$1=y"
+    no="# CONFIG_$1 is not set"
+
+    sed -i "s/${no}/${yes}/" .config
+
+    if ! grep -q "$yes" .config; then
+        echo "$yes" >> .config
+    fi
+}
+
+function config_package_del(){
+    package="PACKAGE_$1"
+    config_del $package
 }
 
 function config_package_add(){
-    package_yes="CONFIG_PACKAGE_$1=y"
-    package_no="# CONFIG_PACKAGE_$1 is not set"
-
-    sed -i "s/${package_no}/${package_yes}/" .config
-
-    if ! grep -q "$package_yes" .config; then
-        echo "$package_yes" >> .config
-    fi
+    package="PACKAGE_$1"
+    config_add $package
 }
 
 function drop_package(){
@@ -114,6 +124,8 @@ config_package_del kmod-usb-storage-uas
 # luci
 config_package_add luci
 config_package_add default-settings-chn
+# bbr
+config_package_add kmod-tcp-bbr
 # coremark cpu 跑分
 config_package_add coremark
 # autocore + lm-sensors-detect： cpu 频率、温度
@@ -123,7 +135,7 @@ config_package_add lm-sensors-detect
 config_package_add nano
 # upnp
 config_package_add luci-app-upnp
-# 定时重启
+# autoreboot
 config_package_add luci-app-autoreboot
 
 # 第三方软件包
@@ -155,6 +167,6 @@ echo "CONFIG_TARGET_ROOTFS_PARTSIZE=1024" >> .config
 # 调整 GRUB_TIMEOUT
 sed -i "s/CONFIG_GRUB_TIMEOUT=\"3\"/CONFIG_GRUB_TIMEOUT=\"1\"/" .config
 ## 不生成 EXT4 硬盘格式镜像
-sed -i "s/CONFIG_TARGET_ROOTFS_EXT4FS=y/# CONFIG_TARGET_ROOTFS_EXT4FS is not set/" .config
+config_del TARGET_ROOTFS_EXT4FS
 ## 不生成非 EFI 镜像
-sed -i "s/CONFIG_GRUB_IMAGES=y/# CONFIG_GRUB_IMAGES is not set/" .config
+config_del GRUB_IMAGES

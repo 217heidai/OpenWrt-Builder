@@ -10,22 +10,32 @@
 # See /LICENSE for more information.
 #
 
-function config_package_del(){
-    package_yes="CONFIG_PACKAGE_$1=y"
-    package_no="# CONFIG_PACKAGE_$1 is not set"
+function config_del(){
+    yes="CONFIG_$1=y"
+    no="# CONFIG_$1 is not set"
 
-    sed -i "s/$package_yes/$package_no/" .config
+    sed -i "s/$yes/$no/" .config
+}
+
+function config_add(){
+    yes="CONFIG_$1=y"
+    no="# CONFIG_$1 is not set"
+
+    sed -i "s/${no}/${yes}/" .config
+
+    if ! grep -q "$yes" .config; then
+        echo "$yes" >> .config
+    fi
+}
+
+function config_package_del(){
+    package="PACKAGE_$1"
+    config_del $package
 }
 
 function config_package_add(){
-    package_yes="CONFIG_PACKAGE_$1=y"
-    package_no="# CONFIG_PACKAGE_$1 is not set"
-
-    sed -i "s/${package_no}/${package_yes}/" .config
-
-    if ! grep -q "$package_yes" .config; then
-        echo "$package_yes" >> .config
-    fi
+    package="PACKAGE_$1"
+    config_add $package
 }
 
 function drop_package(){
@@ -71,6 +81,8 @@ config_package_del kmod-usb-audio
 # luci
 config_package_add luci
 config_package_add default-settings-chn
+# bbr
+config_package_add kmod-tcp-bbr
 # coremark cpu 跑分
 config_package_add coremark
 # autocore + lm-sensors-detect： cpu 频率、温度
@@ -78,23 +90,25 @@ config_package_add autocore
 config_package_add lm-sensors-detect
 # nano 替代 vim
 config_package_add nano
+# upnp
+config_package_add luci-app-upnp
 # tty 终端
 config_package_add luci-app-ttyd
 # docker
 config_package_add luci-app-dockerman
-# upnp
-config_package_add luci-app-upnp
 # kms
 config_package_add luci-app-vlmcsd
 # usb 2.0 3.0 支持
 config_package_add kmod-usb2
 config_package_add kmod-usb3
 # usb 网络支持
+config_package_add usbmuxd
 config_package_add usbutils
 config_package_add usb-modeswitch
 config_package_add kmod-usb-serial
 config_package_add kmod-usb-serial-option
 config_package_add kmod-usb-net-rndis
+config_package_add kmod-usb-net-ipheth
 
 # 第三方软件包
 mkdir -p package/custom
@@ -115,6 +129,13 @@ config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client
 config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server
 config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client
 config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server
+## 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
+config_package_add luci-app-autotimeset
+config_package_add luci-lib-ipkg
+## 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
+config_package_add luci-app-partexp
+## iStore 应用市场
+config_package_add luci-app-store
 ## 4G/5G 支持：FM350-GL USB RNDIS
 ### Siriling/5G-Modem-Support
 config_package_add luci-app-modem
@@ -123,13 +144,6 @@ config_package_add luci-app-sms-tool-js
 config_package_add luci-app-modemband
 ### luci-app-3ginfo-lite
 config_package_add luci-app-3ginfo-lite
-## 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
-config_package_add luci-app-autotimeset
-config_package_add luci-lib-ipkg
-## 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
-config_package_add luci-app-partexp
-## iStore 应用市场
-config_package_add luci-app-store
 
 # 镜像生成
 # 修改分区大小
@@ -140,6 +154,6 @@ echo "CONFIG_TARGET_ROOTFS_PARTSIZE=2048" >> .config
 # 调整 GRUB_TIMEOUT
 sed -i "s/CONFIG_GRUB_TIMEOUT=\"3\"/CONFIG_GRUB_TIMEOUT=\"1\"/" .config
 ## 不生成 EXT4 硬盘格式镜像
-sed -i "s/CONFIG_TARGET_ROOTFS_EXT4FS=y/# CONFIG_TARGET_ROOTFS_EXT4FS is not set/" .config
+config_del TARGET_ROOTFS_EXT4FS
 ## 不生成非 EFI 镜像
-sed -i "s/CONFIG_GRUB_IMAGES=y/# CONFIG_GRUB_IMAGES is not set/" .config
+config_del GRUB_IMAGES
