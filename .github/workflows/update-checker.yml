@@ -30,6 +30,7 @@ jobs:
       id: getHash
       run: |
         git clone -b $REPO_BRANCH --single-branch --depth 1 $REPO_URL openwrt
+        cd openwrt
         echo "commitHash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
     - name: Compare commit hash
