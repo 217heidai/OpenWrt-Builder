@@ -80,6 +80,8 @@ config_package_del kmod-sound-via82xx
 config_package_del kmod-usb-audio
 
 # 新增
+# Firmware
+config_package_add intel-microcode
 # luci
 config_package_add luci
 config_package_add default-settings-chn
