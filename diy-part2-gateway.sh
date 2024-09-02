@@ -68,6 +68,8 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 config_package_del block-mount
 # Extra packages
 config_package_del automount
+# Firmware
+config_package_del intel-igpu-firmware-dmc
 # Network Devices
 config_package_del kmod-8139cp
 config_package_del kmod-8139too

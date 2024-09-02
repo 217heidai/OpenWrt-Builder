@@ -64,6 +64,8 @@ sed -i 's/192.168.1.1/192.168.3.1/g' package/base-files/files/bin/config_generat
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
 # 删除
+# Firmware
+config_package_del intel-igpu-firmware-dmc
 # Sound Support
 config_package_del kmod-sound-core
 config_package_del kmod-ac97
