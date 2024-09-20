@@ -96,6 +96,10 @@ config_package_add lm-sensors-detect
 config_package_add nano
 # upnp
 config_package_add luci-app-upnp
+# python3
+config_package_add python3
+config_package_add python3-base
+config_package_add python3-pip
 # tty 终端
 config_package_add luci-app-ttyd
 # docker
