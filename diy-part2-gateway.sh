@@ -140,9 +140,9 @@ config_package_add luci-app-upnp
 # autoreboot
 config_package_add luci-app-autoreboot
 # python3
-config_package_add python3
-config_package_add python3-base
-config_package_add python3-pip
+#config_package_add python3
+#config_package_add python3-base
+#config_package_add python3-pip
 
 # 第三方软件包
 mkdir -p package/custom
