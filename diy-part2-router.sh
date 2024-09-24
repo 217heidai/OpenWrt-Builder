@@ -65,7 +65,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 # 删除
 # Firmware
-config_package_del intel-igpu-firmware-dmc
+#config_package_del intel-igpu-firmware-dmc
 # Sound Support
 config_package_del kmod-sound-core
 config_package_del kmod-ac97
