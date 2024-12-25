@@ -1,0 +1,148 @@
+name: OpenWrt 24.10 Builder
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [openwrt-24.10]
+
+env:
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: openwrt-24.10
+  VERSION: 24.10
+  TZ: Asia/Shanghai
+
+jobs:
+  OpenWrt_Builder:
+    runs-on: ubuntu-20.04
+
+    strategy:
+        fail-fast: false
+        matrix:
+          info:
+            - '{ "TYPE": "router",  "DIY_P1_SH": "diy-part1.sh", "DIY_P2_SH": "diy-part2-router.sh",  "IP": "192.168.3.1", "USER": "root", "PASSWD": "password"}'
+            - '{ "TYPE": "gateway", "DIY_P1_SH": "diy-part1.sh", "DIY_P2_SH": "diy-part2-gateway.sh", "IP": "192.168.3.5", "USER": "root", "PASSWD": "password"}'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{env.REPO_BRANCH}}
+
+      - name: Check space usage
+        if: (!cancelled())
+        run: df -hT
+
+      - name: Free disk space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      - name: Check space usage
+        if: (!cancelled())
+        run: df -hT
+
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo -E apt-get -qq update
+          sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          sudo timedatectl set-timezone ${{env.TZ}}
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
+
+      - name: Clone source code
+        working-directory: /workdir
+        run: |
+          df -hT $PWD
+          git clone -b ${{env.REPO_BRANCH}} --single-branch --depth 1 ${{env.REPO_URL}} openwrt
+          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+      - name: Load custom feeds
+        run: |
+          chmod +x ${{fromJSON(matrix.info).DIY_P1_SH}}
+          cd openwrt
+          $GITHUB_WORKSPACE/${{fromJSON(matrix.info).DIY_P1_SH}}
+
+      - name: Update feeds
+        run: cd openwrt && ./scripts/feeds update -a
+
+      - name: Install feeds
+        run: cd openwrt && ./scripts/feeds install -a
+
+      - name: Generate default configuration
+        run: cd openwrt && make defconfig
+      
+      - name: Load custom configuration
+        run: |
+          chmod +x ${{fromJSON(matrix.info).DIY_P2_SH}}
+          cd openwrt
+          $GITHUB_WORKSPACE/${{fromJSON(matrix.info).DIY_P2_SH}}
+
+      - name: Download package
+        id: package
+        run: |
+          cd openwrt
+          make defconfig
+          make download -j8
+          find dl -size -1024c -exec ls -l {} \;
+          find dl -size -1024c -exec rm -f {} \;
+
+      - name: Compile the firmware
+        id: compile
+        run: |
+          cd openwrt
+          echo -e "$(($(nproc) + 1)) thread compile"
+          make -j$(($(nproc) + 1)) V=s || make -j1 || make -j1 V=s
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "COMPILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+
+      - name: Check space usage
+        if: (!cancelled())
+        run: df -hT
+
+      - name: Organize compiled firmware
+        if: steps.compile.outputs.status == 'success' && !cancelled()
+        run: |
+          cp -rf openwrt/.config openwrt/bin/targets/x86/64/config
+          cd openwrt/bin/targets/x86/64
+          rm -rf *.buildinfo
+          rm -rf profiles.json
+          rm -rf sha256sums
+          rm -rf immortalwrt-x86-64-generic-kernel.bin
+          rm -rf immortalwrt-x86-64-generic.manifest
+          rm -rf immortalwrt-x86-64-generic-squashfs-rootfs.img.gz
+          mv immortalwrt-x86-64-generic-rootfs.tar.gz immortalwrt-${{env.VERSION}}-x86-64-generic-rootfs-${{env.COMPILE_DATE}}.tar.gz
+          mv immortalwrt-x86-64-generic-squashfs-combined-efi.img.gz immortalwrt-${{env.VERSION}}-x86-64-generic-squashfs-combined-efi-${{env.COMPILE_DATE}}.img.gz
+
+      - name: Upload firmware to release
+        if: steps.compile.outputs.status == 'success' && !cancelled()
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          file_glob: true
+          file: openwrt/bin/targets/x86/64/*
+          asset_name: ${{github.event.repository.name}}-${{github.sha}}
+          tag: ${{fromJSON(matrix.info).TYPE}}-immortalwrt-${{env.VERSION}}-x86_64-${{env.COMPILE_DATE}}
+          body: |
+            - Default IP: ${{fromJSON(matrix.info).IP}}
+            - Default username: ${{fromJSON(matrix.info).USER}}
+            - Default password: ${{fromJSON(matrix.info).PASSWD}}
+          overwrite: true
+
+  Delete_Workflow:
+    needs: [ OpenWrt_Builder ]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          retain_days: 0
+          keep_minimum_runs: 2

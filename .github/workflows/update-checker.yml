@@ -10,7 +10,7 @@ on:
 
 jobs:
   Check_Update:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
   
     strategy:
         fail-fast: false
@@ -47,7 +47,7 @@ jobs:
 
   Delete_Workflow:
     needs: [ Check_Update ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@main
