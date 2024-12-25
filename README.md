@@ -1,5 +1,5 @@
 # OpenWrt-Builder
-基于 [ImmortalWrt](https://github.com/immortalwrt/immortalwrt) 定制编译的主路由、旁路网关，跟随 23.05 分支更新自动编译。
+基于 [ImmortalWrt](https://github.com/immortalwrt/immortalwrt) 定制编译的主路由、旁路网关，跟随 immortalwrt 代码更新自动编译。
 
 # 主路由
 ***支持 4/5G 模块拨号上网。***
