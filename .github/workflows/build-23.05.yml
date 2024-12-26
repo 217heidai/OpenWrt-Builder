@@ -119,7 +119,7 @@ jobs:
           rm -rf immortalwrt-x86-64-generic-kernel.bin
           rm -rf immortalwrt-x86-64-generic.manifest
           rm -rf immortalwrt-x86-64-generic-squashfs-rootfs.img.gz
-          mv config ${{fromJSON(matrix.info).TYPE}}.config
+          mv config immortalwrt-${{fromJSON(matrix.info).TYPE}}.config
           mv immortalwrt-x86-64-generic-rootfs.tar.gz immortalwrt-${{fromJSON(matrix.info).TYPE}}-generic-rootfs-x86_64-23.05-${{env.COMPILE_TIME}}.tar.gz
           mv immortalwrt-x86-64-generic-squashfs-combined-efi.img.gz immortalwrt-${{fromJSON(matrix.info).TYPE}}-generic-squashfs-combined-efi-x86_64-23.05-${{env.COMPILE_TIME}}.img.gz
 
@@ -136,8 +136,10 @@ jobs:
             # IP
             - immortalwrt-router: 192.168.3.1
             - immortalwrt-gateway: 192.168.1.5
-            # username: root
-            # password: password
+            # username
+            - root
+            # password
+            - password
           overwrite: true
 
   Delete_Workflow:
