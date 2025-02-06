@@ -65,7 +65,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 # 删除
 # Firmware
-#config_package_del intel-igpu-firmware-dmc
+#config_package_del i915-firmware-dmc
 # Sound Support
 config_package_del kmod-sound-core
 config_package_del kmod-ac97
@@ -78,6 +78,24 @@ config_package_del kmod-sound-i8x0
 config_package_del kmod-sound-mpu401
 config_package_del kmod-sound-via82xx
 config_package_del kmod-usb-audio
+# Video Support
+config_package_del kmod-acpi-video
+config_package_del kmod-backlight
+config_package_del kmod-drm
+config_package_del kmod-drm-buddy
+config_package_del kmod-drm-display-helper
+config_package_del kmod-drm-exec
+config_package_del kmod-drm-i915
+config_package_del kmod-drm-kms-helper
+config_package_del kmod-drm-suballoc-helper
+config_package_del kmod-drm-ttm
+config_package_del kmod-drm-ttm-helper
+config_package_del kmod-fb
+config_package_del kmod-fb-cfb-copyarea
+config_package_del kmod-fb-cfb-fillrect
+config_package_del kmod-fb-cfb-imgblt
+config_package_del kmod-fb-sys-fops
+config_package_del kmod-fb-sys-ram
 
 # 新增
 # Firmware

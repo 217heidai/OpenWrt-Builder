@@ -69,27 +69,33 @@ config_package_del block-mount
 # Extra packages
 config_package_del automount
 # Firmware
-config_package_del intel-igpu-firmware-dmc
+config_package_del i915-firmware-dmc
 # Network Devices
 config_package_del kmod-8139cp
 config_package_del kmod-8139too
 config_package_del kmod-amazon-ena
 config_package_del kmod-amd-xgbe
 config_package_del kmod-bnx2
+config_package_del kmod-dwmac-intel
 config_package_del kmod-forcedeth
 config_package_del kmod-i40e
 config_package_del kmod-igb
 config_package_del kmod-igbvf
 config_package_del kmod-igc
 config_package_del kmod-ixgbe
+config_package_del kmod-ixgbevf
+config_package_del kmod-libphy
 config_package_del kmod-macvlan
 config_package_del kmod-mdio-devres
 config_package_del kmod-mii
 config_package_del kmod-net-selftests
 config_package_del kmod-pcnet32
+config_package_del kmod-pcs-xpcs
 config_package_del kmod-phy-ax88796b
+config_package_del kmod-phylink
 config_package_del kmod-r8101
 config_package_del kmod-r8125
+config_package_del kmod-r8126
 config_package_del kmod-r8168
 config_package_del kmod-tg3
 config_package_del kmod-tulip
@@ -100,16 +106,6 @@ config_package_del kmod-pppoe
 config_package_del kmod-pppox
 # Sound Support
 config_package_del kmod-sound-core
-config_package_del kmod-ac97
-config_package_del kmod-sound-hda-core
-config_package_del kmod-sound-hda-codec-hdmi
-config_package_del kmod-sound-hda-codec-realtek
-config_package_del kmod-sound-hda-codec-via
-config_package_del kmod-sound-hda-intel
-config_package_del kmod-sound-i8x0
-config_package_del kmod-sound-mpu401
-config_package_del kmod-sound-via82xx
-config_package_del kmod-usb-audio
 # USB Support
 config_package_del kmod-usb-core
 config_package_del kmod-usb-hid
@@ -121,6 +117,24 @@ config_package_del kmod-usb-net-rtl8152-vendor
 config_package_del kmod-usb-storage
 config_package_del kmod-usb-storage-extras
 config_package_del kmod-usb-storage-uas
+# Video Support
+config_package_del kmod-acpi-video
+config_package_del kmod-backlight
+config_package_del kmod-drm
+config_package_del kmod-drm-buddy
+config_package_del kmod-drm-display-helper
+config_package_del kmod-drm-exec
+config_package_del kmod-drm-i915
+config_package_del kmod-drm-kms-helper
+config_package_del kmod-drm-suballoc-helper
+config_package_del kmod-drm-ttm
+config_package_del kmod-drm-ttm-helper
+config_package_del kmod-fb
+config_package_del kmod-fb-cfb-copyarea
+config_package_del kmod-fb-cfb-fillrect
+config_package_del kmod-fb-cfb-imgblt
+config_package_del kmod-fb-sys-fops
+config_package_del kmod-fb-sys-ram
 
 # 新增
 # luci
