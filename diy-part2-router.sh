@@ -65,7 +65,9 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 # 删除
 # Firmware
-#config_package_del intel-igpu-firmware-dmc
+config_package_del intel-igpu-firmware-dmc
+# LED modules
+config_package_del kmod-ledtrig-audio
 # Sound Support
 config_package_del kmod-sound-core
 config_package_del kmod-ac97
@@ -78,6 +80,13 @@ config_package_del kmod-sound-i8x0
 config_package_del kmod-sound-mpu401
 config_package_del kmod-sound-via82xx
 config_package_del kmod-usb-audio
+# Sound
+config_package_del alsa-ucm-conf
+config_package_del alsa-lib
+config_package_del alsa-utils
+# Other
+config_package_del luci-app-rclone_INCLUDE_rclone-webui
+config_package_del luci-app-rclone_INCLUDE_rclone-ng
 
 # 新增
 # Firmware

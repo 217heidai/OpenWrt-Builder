@@ -70,6 +70,9 @@ config_package_del block-mount
 config_package_del automount
 # Firmware
 config_package_del intel-igpu-firmware-dmc
+config_package_del bnx2-firmware
+# LED modules
+config_package_del kmod-ledtrig-audio
 # Network Devices
 config_package_del kmod-8139cp
 config_package_del kmod-8139too
@@ -82,6 +85,8 @@ config_package_del kmod-igb
 config_package_del kmod-igbvf
 config_package_del kmod-igc
 config_package_del kmod-ixgbe
+config_package_del kmod-ixgbevf
+config_package_del kmod-libphy
 config_package_del kmod-macvlan
 config_package_del kmod-mdio-devres
 config_package_del kmod-mii
@@ -90,6 +95,7 @@ config_package_del kmod-pcnet32
 config_package_del kmod-phy-ax88796b
 config_package_del kmod-r8101
 config_package_del kmod-r8125
+config_package_del kmod-r8126
 config_package_del kmod-r8168
 config_package_del kmod-tg3
 config_package_del kmod-tulip
@@ -121,6 +127,13 @@ config_package_del kmod-usb-net-rtl8152-vendor
 config_package_del kmod-usb-storage
 config_package_del kmod-usb-storage-extras
 config_package_del kmod-usb-storage-uas
+# Sound
+config_package_del alsa-ucm-conf
+config_package_del alsa-lib
+config_package_del alsa-utils
+# Other
+config_package_del luci-app-rclone_INCLUDE_rclone-webui
+config_package_del luci-app-rclone_INCLUDE_rclone-ng
 
 # 新增
 # luci
