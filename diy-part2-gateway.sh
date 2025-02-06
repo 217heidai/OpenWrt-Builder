@@ -69,6 +69,7 @@ config_package_del block-mount
 # Extra packages
 config_package_del automount
 # Firmware
+config_package_del bnx2-firmware
 config_package_del i915-firmware-dmc
 # Network Devices
 config_package_del kmod-8139cp
@@ -97,6 +98,7 @@ config_package_del kmod-r8101
 config_package_del kmod-r8125
 config_package_del kmod-r8126
 config_package_del kmod-r8168
+config_package_del kmod-stmmac-core
 config_package_del kmod-tg3
 config_package_del kmod-tulip
 # Network Support
@@ -135,6 +137,9 @@ config_package_del kmod-fb-cfb-fillrect
 config_package_del kmod-fb-cfb-imgblt
 config_package_del kmod-fb-sys-fops
 config_package_del kmod-fb-sys-ram
+# Other
+config_package_del luci-app-rclone_INCLUDE_rclone-webui
+config_package_del luci-app-rclone_INCLUDE_rclone-ng
 
 # 新增
 # luci

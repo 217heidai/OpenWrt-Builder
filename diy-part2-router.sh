@@ -68,16 +68,6 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 #config_package_del i915-firmware-dmc
 # Sound Support
 config_package_del kmod-sound-core
-config_package_del kmod-ac97
-config_package_del kmod-sound-hda-core
-config_package_del kmod-sound-hda-codec-hdmi
-config_package_del kmod-sound-hda-codec-realtek
-config_package_del kmod-sound-hda-codec-via
-config_package_del kmod-sound-hda-intel
-config_package_del kmod-sound-i8x0
-config_package_del kmod-sound-mpu401
-config_package_del kmod-sound-via82xx
-config_package_del kmod-usb-audio
 # Video Support
 config_package_del kmod-acpi-video
 config_package_del kmod-backlight
@@ -96,6 +86,9 @@ config_package_del kmod-fb-cfb-fillrect
 config_package_del kmod-fb-cfb-imgblt
 config_package_del kmod-fb-sys-fops
 config_package_del kmod-fb-sys-ram
+# Other
+config_package_del luci-app-rclone_INCLUDE_rclone-webui
+config_package_del luci-app-rclone_INCLUDE_rclone-ng
 
 # 新增
 # Firmware
