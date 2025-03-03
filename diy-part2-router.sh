@@ -163,8 +163,8 @@ config_package_add luci-app-sms-tool-js
 config_package_add luci-app-modemband
 ### luci-app-3ginfo-lite
 config_package_add luci-app-3ginfo-lite
-### luci-app-wrtbwmon 在线设备流量监控
-config_package_add luci-app-wrtbwmon
+### luci-app-wrtbwmon 在线设备流量监控，实测不准暂时删除
+#config_package_add luci-app-wrtbwmon
 
 # 镜像生成
 # 修改分区大小
