@@ -12,7 +12,7 @@ env:
 
 jobs:
   OpenWrt_Builder:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     strategy:
         fail-fast: false
@@ -144,7 +144,7 @@ jobs:
 
   Delete_Workflow:
     needs: [ OpenWrt_Builder ]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@main
