@@ -130,7 +130,6 @@ jobs:
           repo_token: ${{secrets.GITHUB_TOKEN}}
           file_glob: true
           file: openwrt/bin/targets/x86/64/*
-          asset_name: ${{github.event.repository.name}}-${{github.sha}}
           tag: immortalwrt-23.05-${{env.COMPILE_DATE}}
           body: |
             # IP
