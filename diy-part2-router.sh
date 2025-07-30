@@ -158,6 +158,7 @@ config_package_add luci-app-store
 ## 4G/5G 支持：FM350-GL USB RNDIS
 ### Siriling/5G-Modem-Support
 config_package_add luci-app-modem
+config_package_add luci-app-sms-tool
 ### luci-app-sms-tool-js 与 luci-app-modem 功能重复，暂时移除
 #config_package_add luci-app-sms-tool-js
 ### luci-app-modemband 与 luci-app-modem 功能重复，暂时移除
