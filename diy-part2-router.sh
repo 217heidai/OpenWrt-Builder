@@ -133,7 +133,7 @@ git clone --depth 1  https://github.com/217heidai/OpenWrt-Packages.git package/c
 clean_packages package/custom
 # golang
 rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
+mv package/custom/golang feeds/packages/lang/
 # argon 主题
 config_package_add luci-theme-argon
 ## passwall
