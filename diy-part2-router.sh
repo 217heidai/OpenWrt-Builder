@@ -166,6 +166,7 @@ config_package_add luci-app-3ginfo-lite
 config_package_add luci-app-sms-tool-js
 ## luci-app-easytier
 config_package_add luci-app-easytier
+config_package_add easytier
 
 # 镜像生成
 # 修改分区大小
