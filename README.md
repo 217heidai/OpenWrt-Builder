@@ -100,6 +100,7 @@ WEB 页面无法直接创建 OpenWrt LXC 容器，此处需要使用 shell 命�
 3. 修改 LXC 容器配置文件 `/etc/pve/lxc/100.conf`（100 为以上创建容器时的容器编号），在文末增加：
     ```bash
     onboot: 1
+    unprivileged: 0
     features: fuse=1,nesting=1
     lxc.include: /usr/share/lxc/config/openwrt.common.conf
     lxc.cgroup2.devices.allow: c 108:0 rwm
@@ -110,8 +111,10 @@ WEB 页面无法直接创建 OpenWrt LXC 容器，此处需要使用 shell 命�
     ```bash
     onboot: 1
         开机自启动。
+    unprivileged: 0
+        开启特权容器，不开特权容器会出现各种奇怪问题，如 dnsmasq 无法启动。
     features: fuse=1,nesting=1
-        特权容器，允许嵌套。不开特权容器会出现各种奇怪问题，如 dnsmasq 无法启动。
+        启用FUSE，允许嵌套。
     lxc.include: /usr/share/lxc/config/openwrt.common.conf
         引用 PVE 自带的 OpenWrt 配置。
     lxc.cgroup2.devices.allow: c 108:0 rwm
