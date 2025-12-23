@@ -2,6 +2,7 @@
 基于 [ImmortalWrt](https://github.com/immortalwrt/immortalwrt) 定制编译的主路由、旁路网关，跟随 ImmortalWrt 代码更新自动编译。
 
 ## 支持的 ImmortalWrt 版本
+* [ ] ImmortalWrt-25.12
 * [x] ImmortalWrt-24.10
 * [x] ImmortalWrt-23.05
 
