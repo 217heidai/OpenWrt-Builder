@@ -82,13 +82,14 @@ jobs:
           echo "CONFIG_TARGET_x86=y" >> .config
           echo "CONFIG_TARGET_x86_64=y" >> .config
           make defconfig
+          cp .config ${{fromJSON(matrix.info).TYPE}}.config
       
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
-          name: config
+          name: ${{fromJSON(matrix.info).TYPE}}.config
           include-hidden-files: true
-          path: openwrt/.config
+          path: openwrt/${{fromJSON(matrix.info).TYPE}}.config
             
       - name: Load custom configuration
         run: |
