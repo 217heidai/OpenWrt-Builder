@@ -79,6 +79,12 @@ jobs:
       - name: Generate default configuration
         run: cd openwrt && make defconfig
       
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: config
+          path: openwrt/.config
+            
       - name: Load custom configuration
         run: |
           chmod +x ${{fromJSON(matrix.info).DIY_P2_SH}}
