@@ -83,6 +83,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: config
+          include-hidden-files: true
           path: openwrt/.config
             
       - name: Load custom configuration
