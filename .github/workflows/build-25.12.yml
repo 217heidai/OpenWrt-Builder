@@ -77,7 +77,11 @@ jobs:
         run: cd openwrt && ./scripts/feeds install -a
 
       - name: Generate default configuration
-        run: cd openwrt && make defconfig
+        run: |
+          cd openwrt
+          echo "CONFIG_TARGET_x86=y" >> .config
+          echo "CONFIG_TARGET_x86_64=y" >> .config
+          make defconfig
       
       - name: Upload artifact
         uses: actions/upload-artifact@v6
