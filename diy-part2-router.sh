@@ -136,6 +136,9 @@ clean_packages package/custom
 ## golang
 rm -rf feeds/packages/lang/golang
 mv package/custom/golang feeds/packages/lang/
+## patch
+patch -p1 <package/custom/patch/pcie_mhi.patch
+
 ## argon 主题
 config_package_add luci-theme-argon
 ## passwall
