@@ -131,13 +131,14 @@ config_package_add kmod-usb-net-ipheth
 
 # 第三方软件包
 mkdir -p package/custom
-git clone --depth 1  https://github.com/217heidai/OpenWrt-Packages.git package/custom
+git clone --depth 1 https://github.com/217heidai/OpenWrt-Packages.git package/custom
 clean_packages package/custom
 ## golang
 rm -rf feeds/packages/lang/golang
 mv package/custom/golang feeds/packages/lang/
-## patch
-patch -p1 <package/custom/patch/pcie_mhi.patch
+## quectel_MHI
+rm -rf package/custom/quectel_MHI
+git clone --depth 1 https://github.com/217heidai/Quectel_MHI.git package/custom/quectel_MHI
 
 ## argon 主题
 config_package_add luci-theme-argon
