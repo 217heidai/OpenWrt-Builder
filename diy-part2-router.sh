@@ -152,7 +152,7 @@ config_package_add luci-lib-ipkg
 ## 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
 config_package_add luci-app-partexp
 ## iStore 应用市场
-config_package_add luci-app-store
+#config_package_add luci-app-store
 ## 4G/5G 支持：FM350-GL USB RNDIS
 ### Siriling/5G-Modem-Support
 config_package_add luci-app-modem
