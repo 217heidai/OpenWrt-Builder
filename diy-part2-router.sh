@@ -129,7 +129,7 @@ config_package_add kmod-usb-net-ipheth
 
 # 第三方软件包
 mkdir -p package/custom
-git clone --depth 1  https://github.com/217heidai/OpenWrt-Packages.git package/custom
+git clone -b openwrt-23.05 --single-branch --depth 1  https://github.com/217heidai/OpenWrt-Packages.git package/custom
 clean_packages package/custom
 ## golang
 rm -rf feeds/packages/lang/golang
