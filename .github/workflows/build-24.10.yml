@@ -22,28 +22,9 @@ jobs:
             - '{ "TYPE": "gateway", "DIY_P1_SH": "diy-part1.sh", "DIY_P2_SH": "diy-part2-gateway.sh"}'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{env.REPO_BRANCH}}
-
-      - name: Check space usage
-        if: (!cancelled())
-        run: df -hT
-
-      - name: Free disk space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: false
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
-
-      - name: Check space usage
-        if: (!cancelled())
-        run: df -hT
 
       - name: Initialization environment
         env:
@@ -57,10 +38,12 @@ jobs:
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
 
+      - name: Check space usage
+        run: df -hT
+
       - name: Clone source code
         working-directory: /workdir
         run: |
-          df -hT $PWD
           git clone -b ${{env.REPO_BRANCH}} --single-branch --depth 1 ${{env.REPO_URL}} openwrt
           ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
@@ -77,7 +60,19 @@ jobs:
         run: cd openwrt && ./scripts/feeds install -a
 
       - name: Generate default configuration
-        run: cd openwrt && make defconfig
+        run: |
+          cd openwrt
+          echo "CONFIG_TARGET_x86=y" >> .config
+          echo "CONFIG_TARGET_x86_64=y" >> .config
+          make defconfig
+          cp .config immortalwrt-${{fromJSON(matrix.info).TYPE}}-default.config
+      
+      - name: Upload default configuration to artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: immortalwrt-${{fromJSON(matrix.info).TYPE}}-default.config
+          path: openwrt/immortalwrt-${{fromJSON(matrix.info).TYPE}}-default.config
+          retention-days: 3
       
       - name: Load custom configuration
         run: |
@@ -105,7 +100,6 @@ jobs:
           echo "COMPILE_TIME=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
       - name: Check space usage
-        if: (!cancelled())
         run: df -hT
 
       - name: Organize compiled firmware
@@ -119,6 +113,8 @@ jobs:
           rm -rf immortalwrt-x86-64-generic-kernel.bin
           rm -rf immortalwrt-x86-64-generic.manifest
           rm -rf immortalwrt-x86-64-generic-squashfs-rootfs.img.gz
+          rm -rf immortalwrt-x86-64-generic-targz-combined-efi.img.gz
+          rm -rf immortalwrt-x86-64-generic-targz-rootfs.img.gz
           mv config immortalwrt-${{fromJSON(matrix.info).TYPE}}.config
           mv immortalwrt-x86-64-generic-rootfs.tar.gz immortalwrt-${{fromJSON(matrix.info).TYPE}}-generic-rootfs-x86_64-24.10-${{env.COMPILE_TIME}}.tar.gz
           mv immortalwrt-x86-64-generic-squashfs-combined-efi.img.gz immortalwrt-${{fromJSON(matrix.info).TYPE}}-generic-squashfs-combined-efi-x86_64-24.10-${{env.COMPILE_TIME}}.img.gz
@@ -146,7 +142,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@main
+        uses: Mattraks/delete-workflow-runs@v2
         with:
           retain_days: 0
           keep_minimum_runs: 2
