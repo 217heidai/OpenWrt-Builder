@@ -133,6 +133,10 @@ config_package_add kmod-usb-net-ipheth
 mkdir -p package/custom
 git clone -b openwrt-25.12 --single-branch --depth 1 https://github.com/217heidai/OpenWrt-Packages.git package/custom
 clean_packages package/custom
+# QModem
+echo 'src-git qmodem https://github.com/FUjr/QModem.git;main' >> feeds.conf.default
+./scripts/feeds update qmodem
+./scripts/feeds install -a -f -p qmodem
 ## golang
 rm -rf feeds/packages/lang/golang
 mv package/custom/golang feeds/packages/lang/
@@ -156,14 +160,8 @@ config_package_add luci-app-partexp
 ## iStore 应用市场
 #config_package_add luci-app-store
 ## 4G/5G 支持：FM350-GL USB RNDIS
-### Siriling/5G-Modem-Support
-config_package_add luci-app-modem
-### luci-app-modemband
-config_package_add luci-app-modemband
-### luci-app-3ginfo-lite
-config_package_add luci-app-3ginfo-lite
-### luci-app-sms-tool-js
-config_package_add luci-app-sms-tool-js
+### qmodem
+config_package_add luci-app-qmodem
 ## luci-app-easytier
 config_package_add luci-app-easytier
 config_package_add easytier
