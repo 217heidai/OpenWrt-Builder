@@ -92,7 +92,7 @@ config_package_del luci-app-rclone_INCLUDE_rclone-ng
 
 # 新增
 # Firmware
-config_package_add intel-microcode
+#config_package_add intel-microcode
 # luci
 config_package_add luci
 config_package_add default-settings-chn
