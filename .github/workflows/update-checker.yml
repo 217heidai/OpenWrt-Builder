@@ -16,6 +16,7 @@ jobs:
         fail-fast: false
         matrix:
           info:
+            - '{ "REPO_BRANCH": "openwrt-25.12"}'
             - '{ "REPO_BRANCH": "openwrt-24.10"}'
             - '{ "REPO_BRANCH": "openwrt-23.05"}'
 
