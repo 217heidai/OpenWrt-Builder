@@ -30,21 +30,6 @@ jobs:
         if: (!cancelled())
         run: df -hT
 
-      - name: Free disk space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: false
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
-
-      - name: Check space usage
-        if: (!cancelled())
-        run: df -hT
-
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
