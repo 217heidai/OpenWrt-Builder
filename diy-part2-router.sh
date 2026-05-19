@@ -107,6 +107,8 @@ config_package_add lm-sensors-detect
 config_package_add nano
 # upnp
 config_package_add luci-app-upnp
+# autoreboot
+config_package_add luci-app-autoreboot
 # python3
 #config_package_add python3
 #config_package_add python3-base
@@ -149,8 +151,9 @@ config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server
 config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client
 config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server
 ## 定时任务。重启、关机、重启网络、释放内存、系统清理、网络共享、关闭网络、自动检测断网重连、MWAN3负载均衡检测重连、自定义脚本等10多个功能
-config_package_add luci-app-taskplan
-config_package_add luci-lib-ipkg
+#config_package_add luci-app-taskplan
+#config_package_add luci-lib-ipkg
+#config_package_add bash
 ## 分区扩容。一键自动格式化分区、扩容、自动挂载插件，专为OPENWRT设计，简化OPENWRT在分区挂载上烦锁的操作
 config_package_add luci-app-partexp
 ## iStore 应用市场
