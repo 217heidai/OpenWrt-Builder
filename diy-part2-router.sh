@@ -164,8 +164,9 @@ config_package_add luci-app-partexp
 #config_package_add luci-app-store
 ## 4G/5G 支持：FM350-GL USB RNDIS
 ### qmodem
-config_package_add luci-app-qmodem
-config_package_add luci-app-qmodem-sms
+#config_package_add luci-app-qmodem
+#config_package_add luci-app-qmodem-sms
+config_package_add luci-app-qmodem-next
 ## luci-app-easytier
 config_package_add luci-app-easytier
 config_package_add easytier
