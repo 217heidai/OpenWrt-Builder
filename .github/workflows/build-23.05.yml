@@ -26,6 +26,17 @@ jobs:
         with:
           ref: ${{env.REPO_BRANCH}}
 
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
