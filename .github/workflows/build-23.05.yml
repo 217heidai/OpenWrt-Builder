@@ -121,6 +121,7 @@ jobs:
           rm -rf *.buildinfo
           rm -rf profiles.json
           rm -rf sha256sums
+          rm -rf packages
           rm -rf immortalwrt-x86-64-generic-kernel.bin
           rm -rf immortalwrt-x86-64-generic.manifest
           rm -rf immortalwrt-x86-64-generic-squashfs-rootfs.img.gz
