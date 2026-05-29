@@ -18,8 +18,8 @@ jobs:
         fail-fast: false
         matrix:
           info:
-            - '{ "TYPE": "router",  "DIY_P1_SH": "diy-part1.sh", "DIY_P2_SH": "diy-part2-router.sh" }'
-            - '{ "TYPE": "gateway", "DIY_P1_SH": "diy-part1.sh", "DIY_P2_SH": "diy-part2-gateway.sh"}'
+            - '{ "TYPE": "router",  "DIY_P1_SH": "diy-part1-router.sh", "DIY_P2_SH": "diy-part2-router.sh" }'
+            - '{ "TYPE": "gateway", "DIY_P1_SH": "diy-part1-gateway.sh", "DIY_P2_SH": "diy-part2-gateway.sh"}'
     steps:
       - name: Checkout
         uses: actions/checkout@v6
