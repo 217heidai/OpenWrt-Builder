@@ -132,11 +132,6 @@ config_package_add kmod-usb-net-rndis
 config_package_add kmod-usb-net-ipheth
 
 # 第三方软件包
-# QModem
-echo 'src-git qmodem https://github.com/FUjr/QModem.git;main' >> feeds.conf.default
-./scripts/feeds update qmodem
-./scripts/feeds install -a -f -p qmodem
-# OpenWrt-Packages
 mkdir -p package/custom
 git clone -b openwrt-25.12 --single-branch --depth 1 https://github.com/217heidai/OpenWrt-Packages.git package/custom
 clean_packages package/custom
