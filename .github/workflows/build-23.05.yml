@@ -139,6 +139,7 @@ jobs:
           file_glob: true
           file: openwrt/bin/targets/x86/64/*
           tag: immortalwrt-23.05-${{env.COMPILE_DATE}}
+          release_name: immortalwrt-23.05-${{env.COMPILE_DATE}}
           body: |
             # IP
             - immortalwrt-router: 192.168.3.1
