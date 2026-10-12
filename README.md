@@ -9,14 +9,13 @@
 1. 精简全部音频组件。
 
 ### 添加
-1. 升级 golang 版本（geodata、xray 等依赖高版本 go）。
-2. 更换 argon 主题。
-3. 添加 ttyd 终端。
-4. 添加 docker 服务。
-5. 添加 upnp 服务。
-6. 添加 kms 服务。
-7. 添加 passwall。
-8. 添加 usb、pci 4/5G 模块拨号、短信、基站锁定等功能。
+1. 更换 argon 主题。
+2. 添加 ttyd 终端。
+3. 添加 docker 服务。
+4. 添加 upnp 服务。
+5. 添加 kms 服务。
+6. 添加 passwall。
+7. 添加 usb、pci 4/5G 模块拨号、短信、基站锁定等功能。
 
 ## 安装
 此处不再赘述。
@@ -40,11 +39,10 @@
 4. 精简全部 usb 组件。
 
 ### 添加
-1. 升级 golang 版本（geodata、xray 等依赖高版本 go）。
-2. 更换 argon 主题。
-3. 添加 upnp 服务。
-4. 添加定时重启。
-5. 添加 passwall。
+1. 更换 argon 主题。
+2. 添加 upnp 服务。
+3. 添加定时重启。
+4. 添加 passwall。
 
 ## 安装
 注意：
