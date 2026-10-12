@@ -17,3 +17,8 @@ sed -i 's,Os,O2 -march=x86-64-v2,g' include/target.mk
 sed -i 's,noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-efi.cfg
 sed -i 's,noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-iso.cfg
 sed -i 's,noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-pc.cfg
+
+# zz_openwrtpackages
+echo 'src-git zz_openwrtpackages https://github.com/217heidai/OpenWrt-Packages.git;openwrt-25.12' >> feeds.conf.default
+# QModem
+echo 'src-git qmodem https://github.com/FUjr/QModem.git;main' >> feeds.conf.default
