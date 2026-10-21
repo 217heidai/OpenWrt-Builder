@@ -18,7 +18,7 @@ sed -i 's,noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-efi.c
 sed -i 's,noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-iso.cfg
 sed -i 's,noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-pc.cfg
 
-# zz_openwrtpackages（必须置于官方 feed 之前：feeds install 同名包先到先得）
-{ echo 'src-git zz_openwrtpackages https://github.com/217heidai/OpenWrt-Packages.git;openwrt-23.05'; cat feeds.conf.default; } > feeds.conf.default.tmp && mv feeds.conf.default.tmp feeds.conf.default
-# QModem
-echo 'src-git qmodem https://github.com/FUjr/QModem.git;main' >> feeds.conf.default
+# 自定义 feed 必须置于官方 feed 之前：feeds install 同名包先到先得
+{ echo 'src-git zz_openwrtpackages https://github.com/217heidai/OpenWrt-Packages.git;openwrt-23.05'
+  echo 'src-git qmodem https://github.com/FUjr/QModem.git;main'
+  cat feeds.conf.default; } > feeds.conf.default.tmp && mv feeds.conf.default.tmp feeds.conf.default
