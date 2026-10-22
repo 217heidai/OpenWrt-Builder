@@ -15,6 +15,12 @@ function config_del(){
     no="# CONFIG_$1 is not set"
 
     sed -i "s/$yes/$no/" .config
+
+    # 符号尚未写入 .config 时（如 default y 的开关在首次 defconfig 前调用 del），
+    # sed 无匹配会落空，最终 defconfig 会按默认 y 重新开启；这里显式写入 not-set 覆盖默认值
+    if ! grep -q "$no" .config; then
+        echo "$no" >> .config
+    fi
 }
 
 function config_add(){
