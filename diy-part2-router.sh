@@ -69,6 +69,15 @@ sed -i 's/192.168.1.1/192.168.3.1/g' package/base-files/files/bin/config_generat
 # Modify default theme
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
+# ===== Go 默认工具链 1.26 -> 1.27 =====
+# xray-core 26.10+ 的 go.mod 要求 go>=1.27；官方默认 GO_DEFAULT_VERSION=1.26(1.26.9)，
+# 且 GOTOOLCHAIN=local 禁止自动升级，导致 xray 编译即失败。
+# 官方 packages feed 已自带 golang1.27(1.27.1)，这里把默认版本切到 1.27，
+# 所有声明 golang/host 的包统一使用 1.27.1。
+if [ -f feeds/packages/lang/golang/golang-values.mk ]; then
+    sed -i 's/^GO_DEFAULT_VERSION:=1.26/GO_DEFAULT_VERSION:=1.27/' feeds/packages/lang/golang/golang-values.mk
+fi
+
 # 删除
 # Firmware
 #config_package_del i915-firmware-dmc
