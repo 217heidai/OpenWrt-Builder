@@ -72,6 +72,17 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 # 删除
 # Firmware
 #config_package_del i915-firmware-dmc
+# Network Devices
+## 移除云专用、嵌入式、古董淘汰网卡驱动
+config_package_del kmod-8139cp
+config_package_del kmod-8139too
+config_package_del kmod-amazon-ena
+config_package_del kmod-dwmac-intel
+config_package_del kmod-forcedeth
+config_package_del kmod-pcnet32
+config_package_del kmod-phy-ax88796b
+config_package_del kmod-stmmac-core
+config_package_del kmod-tulip
 # Sound Support
 config_package_del kmod-sound-core
 # Video Support
@@ -142,16 +153,21 @@ config_package_add kmod-usb-net-ipheth
 config_package_add luci-theme-argon
 ## passwall
 config_package_add luci-app-passwall
-config_package_add luci-app-passwall_INCLUDE_V2ray_Geoview
+config_package_del luci-app-passwall_Iptables_Transparent_Proxy
+config_package_add luci-app-passwall_Nftables_Transparent_Proxy
+config_package_del luci-app-passwall_INCLUDE_Geoview
+config_package_del luci-app-passwall_INCLUDE_SmartDNS
 config_package_del luci-app-passwall_INCLUDE_Haproxy
 config_package_del luci-app-passwall_INCLUDE_Hysteria
 config_package_del luci-app-passwall_INCLUDE_NaiveProxy
 config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client
 config_package_del luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server
+config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client
+config_package_del luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server
 config_package_del luci-app-passwall_INCLUDE_Shadow_TLS
 config_package_del luci-app-passwall_INCLUDE_Simple_Obfs
-config_package_add luci-app-passwall_INCLUDE_SingBox
-config_package_add luci-app-passwall_INCLUDE_V2ray_Geodata
+config_package_del luci-app-passwall_INCLUDE_SingBox
+config_package_del luci-app-passwall_INCLUDE_V2ray_Geodata
 config_package_del luci-app-passwall_INCLUDE_V2ray_Plugin
 config_package_add luci-app-passwall_INCLUDE_Xray
 config_package_del luci-app-passwall_INCLUDE_Xray_Plugin
