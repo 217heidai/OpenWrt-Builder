@@ -72,6 +72,17 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 # 删除
 # Firmware
 #config_package_del i915-firmware-dmc
+# Network Devices
+## 移除云专用、嵌入式、古董淘汰网卡驱动
+config_package_del kmod-8139cp
+config_package_del kmod-8139too
+config_package_del kmod-amazon-ena
+config_package_del kmod-dwmac-intel
+config_package_del kmod-forcedeth
+config_package_del kmod-pcnet32
+config_package_del kmod-phy-ax88796b
+config_package_del kmod-stmmac-core
+config_package_del kmod-tulip
 # Sound Support
 config_package_del kmod-sound-core
 # Video Support
@@ -92,19 +103,6 @@ config_package_del kmod-fb-cfb-fillrect
 config_package_del kmod-fb-cfb-imgblt
 config_package_del kmod-fb-sys-fops
 config_package_del kmod-fb-sys-ram
-# Network Devices：云专用 / ARM 嵌入式 / 古董淘汰硬件（服务器类网卡保留不动）
-# 云专用：AWS EC2 ENA
-config_package_del kmod-amazon-ena
-# ARM / 嵌入式 SoC：DesignWare MAC、Intel Quark DWMAC、ASIX 嵌入式 PHY
-config_package_del kmod-stmmac-core
-config_package_del kmod-dwmac-intel
-config_package_del kmod-phy-ax88796b
-# 古董淘汰硬件：RTL8139 百兆、DEC Tulip、AMD PCnet、nForce forcedeth
-config_package_del kmod-8139cp
-config_package_del kmod-8139too
-config_package_del kmod-tulip
-config_package_del kmod-pcnet32
-config_package_del kmod-forcedeth
 # Other
 config_package_del luci-app-rclone_INCLUDE_rclone-webui
 config_package_del luci-app-rclone_INCLUDE_rclone-ng
